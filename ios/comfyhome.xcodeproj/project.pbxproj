@@ -8,19 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* comfyhomeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* comfyhomeTests.m */; };
+		03115CE01D9E4B418A3B6E09 /* Ubuntu-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 603A7E07A0B6497AAF04AE14 /* Ubuntu-Italic.ttf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-comfyhome.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-comfyhome.a */; };
+		0E7AC2D64D784B70AB7EDBF6 /* Ubuntu-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C89B7C16378A49139BE47990 /* Ubuntu-LightItalic.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-comfyhome-comfyhomeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-comfyhome-comfyhomeTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A6D93DA368054FA889197F8F /* Ubuntu-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAAC16C3614C421EA88126A8 /* Ubuntu-Bold.ttf */; };
-		D44D52F2FB4B414AA81B47D0 /* Ubuntu-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50077D0CED444F56A4050E6F /* Ubuntu-BoldItalic.ttf */; };
-		03115CE01D9E4B418A3B6E09 /* Ubuntu-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 603A7E07A0B6497AAF04AE14 /* Ubuntu-Italic.ttf */; };
-		C07447C6F1134B8A8C1F4152 /* Ubuntu-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01FEFA479FF84E4998E03363 /* Ubuntu-Light.ttf */; };
-		0E7AC2D64D784B70AB7EDBF6 /* Ubuntu-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C89B7C16378A49139BE47990 /* Ubuntu-LightItalic.ttf */; };
-		D83418499C164457B8CBA692 /* Ubuntu-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC1588036D0E476483DB1438 /* Ubuntu-Medium.ttf */; };
 		B1AA64C21FB140E0B5173AAA /* Ubuntu-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8CE5C24CB074CBA9B5ADF67 /* Ubuntu-MediumItalic.ttf */; };
+		C07447C6F1134B8A8C1F4152 /* Ubuntu-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01FEFA479FF84E4998E03363 /* Ubuntu-Light.ttf */; };
+		D44D52F2FB4B414AA81B47D0 /* Ubuntu-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50077D0CED444F56A4050E6F /* Ubuntu-BoldItalic.ttf */; };
+		D83418499C164457B8CBA692 /* Ubuntu-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC1588036D0E476483DB1438 /* Ubuntu-Medium.ttf */; };
 		E71579B889F4463CA2D5E49D /* Ubuntu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63604C512C5A49D08FBF5CFA /* Ubuntu-Regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +38,7 @@
 		00E356EE1AD99517003FC87E /* comfyhomeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = comfyhomeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* comfyhomeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = comfyhomeTests.m; sourceTree = "<group>"; };
+		01FEFA479FF84E4998E03363 /* Ubuntu-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Light.ttf"; path = "../app/assets/fonts/Ubuntu-Light.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* comfyhome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = comfyhome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = comfyhome/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = comfyhome/AppDelegate.mm; sourceTree = "<group>"; };
@@ -46,20 +47,19 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = comfyhome/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-comfyhome-comfyhomeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-comfyhome-comfyhomeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-comfyhome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comfyhome.debug.xcconfig"; path = "Target Support Files/Pods-comfyhome/Pods-comfyhome.debug.xcconfig"; sourceTree = "<group>"; };
+		50077D0CED444F56A4050E6F /* Ubuntu-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-BoldItalic.ttf"; path = "../app/assets/fonts/Ubuntu-BoldItalic.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-comfyhome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comfyhome.release.xcconfig"; path = "Target Support Files/Pods-comfyhome/Pods-comfyhome.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-comfyhome-comfyhomeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comfyhome-comfyhomeTests.debug.xcconfig"; path = "Target Support Files/Pods-comfyhome-comfyhomeTests/Pods-comfyhome-comfyhomeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-comfyhome.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-comfyhome.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		603A7E07A0B6497AAF04AE14 /* Ubuntu-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Italic.ttf"; path = "../app/assets/fonts/Ubuntu-Italic.ttf"; sourceTree = "<group>"; };
+		63604C512C5A49D08FBF5CFA /* Ubuntu-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Regular.ttf"; path = "../app/assets/fonts/Ubuntu-Regular.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = comfyhome/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-comfyhome-comfyhomeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comfyhome-comfyhomeTests.release.xcconfig"; path = "Target Support Files/Pods-comfyhome-comfyhomeTests/Pods-comfyhome-comfyhomeTests.release.xcconfig"; sourceTree = "<group>"; };
+		C89B7C16378A49139BE47990 /* Ubuntu-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-LightItalic.ttf"; path = "../app/assets/fonts/Ubuntu-LightItalic.ttf"; sourceTree = "<group>"; };
+		C8CE5C24CB074CBA9B5ADF67 /* Ubuntu-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-MediumItalic.ttf"; path = "../app/assets/fonts/Ubuntu-MediumItalic.ttf"; sourceTree = "<group>"; };
+		DAAC16C3614C421EA88126A8 /* Ubuntu-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Bold.ttf"; path = "../app/assets/fonts/Ubuntu-Bold.ttf"; sourceTree = "<group>"; };
+		EC1588036D0E476483DB1438 /* Ubuntu-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Medium.ttf"; path = "../app/assets/fonts/Ubuntu-Medium.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		DAAC16C3614C421EA88126A8 /* Ubuntu-Bold.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Bold.ttf"; path = "../app/assets/fonts/Ubuntu-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		50077D0CED444F56A4050E6F /* Ubuntu-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-BoldItalic.ttf"; path = "../app/assets/fonts/Ubuntu-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		603A7E07A0B6497AAF04AE14 /* Ubuntu-Italic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Italic.ttf"; path = "../app/assets/fonts/Ubuntu-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		01FEFA479FF84E4998E03363 /* Ubuntu-Light.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Light.ttf"; path = "../app/assets/fonts/Ubuntu-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C89B7C16378A49139BE47990 /* Ubuntu-LightItalic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-LightItalic.ttf"; path = "../app/assets/fonts/Ubuntu-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		EC1588036D0E476483DB1438 /* Ubuntu-Medium.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Medium.ttf"; path = "../app/assets/fonts/Ubuntu-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C8CE5C24CB074CBA9B5ADF67 /* Ubuntu-MediumItalic.ttf */ = {isa = PBXFileReference; name = "Ubuntu-MediumItalic.ttf"; path = "../app/assets/fonts/Ubuntu-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		63604C512C5A49D08FBF5CFA /* Ubuntu-Regular.ttf */ = {isa = PBXFileReference; name = "Ubuntu-Regular.ttf"; path = "../app/assets/fonts/Ubuntu-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,7 +166,7 @@
 			sourceTree = "<group>";
 		};
 		FF0B43AB6AFE4ECF9EB6A4D2 /* Resources */ = {
-			isa = "PBXGroup";
+			isa = PBXGroup;
 			children = (
 				DAAC16C3614C421EA88126A8 /* Ubuntu-Bold.ttf */,
 				50077D0CED444F56A4050E6F /* Ubuntu-BoldItalic.ttf */,
@@ -179,7 +179,6 @@
 			);
 			name = Resources;
 			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -541,8 +540,12 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = comfyhome;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -567,7 +570,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = comfyhome;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
