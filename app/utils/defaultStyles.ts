@@ -1,5 +1,7 @@
 import {StyleSheet} from 'react-native';
-import {ICON_SF} from './config';
+import colors from './colors';
+import {ICON_SF, fp, wp, hp} from './config';
+import {FONT_TYPES} from './style';
 
 export default StyleSheet.create({
   svg_scale: {
@@ -11,5 +13,41 @@ export default StyleSheet.create({
   },
   self_center: {
     alignSelf: 'center',
+  },
+  headingStyleA: {
+    fontSize: fp(32),
+    fontFamily: FONT_TYPES.W_500,
+    color: colors.textSecondary,
+  },
+  headingStyleB: {
+    fontSize: fp(32),
+    fontFamily: FONT_TYPES.W_400,
+    color: colors.textSecondary,
+  },
+});
+
+export const imageGridStyles = StyleSheet.create({
+  title: {
+    fontSize: fp(16),
+    fontFamily: FONT_TYPES.W_400,
+    color: colors.textSecondary,
+    marginVertical: 5,
+    marginLeft: 5,
+  },
+  imageTypeADimension: {
+    width: wp(30),
+    height: hp(10),
+  },
+  imageTypeBDimension: {
+    width: wp(40),
+    height: hp(22),
+  },
+  imageTypeCDimension: {
+    width: wp(30),
+    height: hp(22),
+  },
+  imageTypeDDimension: {
+    width: wp(40),
+    height: hp(10),
   },
 });

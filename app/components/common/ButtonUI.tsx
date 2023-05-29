@@ -7,11 +7,12 @@ import {FONT_TYPES} from '../../utils/style';
 
 type Props = {
   title: string;
+  onPress: () => void;
 };
 
-export default function ButtonUI({title}: Props): JSX.Element {
+export default function ButtonUI({title, onPress}: Props): JSX.Element {
   return (
-    <Pressable style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <Text style={styles.title}>{title}</Text>
     </Pressable>
   );

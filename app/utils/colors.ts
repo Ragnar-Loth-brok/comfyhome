@@ -14,6 +14,7 @@ const def_colors = {
 export default {
   // appBg: '#FBFDFD',
   appBg: '#F2F1E8',
+  appBgPrimary: '#FDFBF9',
   textPrimary: def_colors.blackPrimary,
   textSecondary: def_colors.blackSecondary,
   headingColor: '#C58456',
@@ -21,4 +22,5 @@ export default {
   borderSecondaryColor: '#C6D4CF',
   circleBg: '#E8E4D9',
   buttonBG: '#5C8178',
+  imageCardBg: '#F2F0E9',
 };

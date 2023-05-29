@@ -6,6 +6,8 @@ type SharedElementRouteProps = {
 
 type RootStackParamList = {
   Splash: undefined;
+  Home: undefined;
+  Product: undefined;
 };
 
 export type {SharedElementRouteProps, RootStackParamList};

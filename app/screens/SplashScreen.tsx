@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Image, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {
   Gesture,
@@ -20,6 +20,9 @@ import {FONT_TYPES} from '../utils/style';
 import ButtonUI from '../components/common/ButtonUI';
 import Container from '../components/common/Container';
 import CircleUI from '../components/UI/CircleUI';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../utils/globalTypes';
 
 const CIRCLE_X = hpp(150);
 const SWIPE_LIMIT = wp(40);
@@ -30,6 +33,12 @@ const CHAIR_2_INIT = wp(165);
 const CHAIR_2 = wp(35);
 
 export default function SplashScreen(): JSX.Element {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const homeNavigation = useCallback(() => {
+    navigation.navigate('Home');
+  }, [navigation]);
+
   const sharedValue = useSharedValue(0);
   const position = useSharedValue(SWIPE_LIMIT);
   const productPosition = useSharedValue(SWIPE_LIMIT);
@@ -122,7 +131,7 @@ export default function SplashScreen(): JSX.Element {
   }, []);
 
   return (
-    <Container>
+    <Container backgroundColor={colors.appBg}>
       <GestureHandlerRootView>
         <StatusBar hidden={true} />
         <View style={styles.subContainer}>
@@ -163,7 +172,7 @@ export default function SplashScreen(): JSX.Element {
         </GestureDetector>
       </GestureHandlerRootView>
       <View style={styles.buttonContainer}>
-        <ButtonUI title="Get Started" />
+        <ButtonUI title="Get Started" onPress={homeNavigation} />
       </View>
     </Container>
   );

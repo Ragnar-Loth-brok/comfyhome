@@ -1,11 +1,11 @@
 import {Dimensions} from 'react-native';
 
-const deviceHeight = Dimensions.get('screen').height || 0;
-const deviceWidth = Dimensions.get('screen').width || 0;
+const deviceHeight = Dimensions.get('window').height || 0;
+const deviceWidth = Dimensions.get('window').width || 0;
 
 export const defaultDeviceSize = {
-  height: 844,
-  width: 390,
+  height: 812,
+  width: 375,
 };
 
 export const hp = (value: number) => {
