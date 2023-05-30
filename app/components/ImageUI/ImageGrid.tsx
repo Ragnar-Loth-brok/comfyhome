@@ -3,8 +3,10 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import Animated, {
   Extrapolate,
   interpolate,
+  Layout,
   SharedValue,
   useAnimatedStyle,
+  ZoomIn,
 } from 'react-native-reanimated';
 import colors from '../../utils/colors';
 import {hp, wp, wpp} from '../../utils/config';
@@ -73,32 +75,12 @@ export default function ImageGrid({
       transform: [{translateX}, {translateY}],
     };
   }, []);
-  //   const imageBAnimate = useAnimatedStyle(() => {
-  //     const translateX = interpolate(
-  //       scrollX.value,
-  //       [-width.value, 0 + id * WIDTH, width.value],
-  //       [-80, 0, 80],
-  //       {
-  //         extrapolateLeft: Extrapolate.CLAMP,
-  //         extrapolateRight: Extrapolate.CLAMP,
-  //       },
-  //     );
-  //     const translateY = interpolate(
-  //       scrollY.value,
-  //       [0 + idY * 50, height.value],
-  //       [0, -1000],
-  //       {
-  //         // extrapolateLeft: Extrapolate.CLAMP,
-  //         // extrapolateRight: Extrapolate.CLAMP,
-  //       },
-  //     );
-  //     return {
-  //       transform: [{translateX}, {translateY}],
-  //     };
-  //   }, []);
   return (
     <View style={styles.container}>
-      <View style={styles.typeAContainer}>
+      <Animated.View
+        layout={Layout}
+        entering={ZoomIn.delay(200).springify()}
+        style={styles.typeAContainer}>
         <View
           style={[styles.imageContainer, imageGridStyles.imageTypeADimension]}>
           <Animated.View style={imageBAnimate}>
@@ -110,9 +92,12 @@ export default function ImageGrid({
           </Animated.View>
         </View>
         <Text style={imageGridStyles.title}>Product A</Text>
-      </View>
+      </Animated.View>
 
-      <View style={styles.typeBContainer}>
+      <Animated.View
+        layout={Layout}
+        entering={ZoomIn.delay(500).springify()}
+        style={styles.typeBContainer}>
         <View
           style={[styles.imageContainer, imageGridStyles.imageTypeBDimension]}>
           <Animated.View style={imageAAnimate}>
@@ -124,8 +109,11 @@ export default function ImageGrid({
           </Animated.View>
         </View>
         <Text style={imageGridStyles.title}>Product B</Text>
-      </View>
-      <View style={styles.typeCContainer}>
+      </Animated.View>
+      <Animated.View
+        layout={Layout}
+        entering={ZoomIn.delay(700).springify()}
+        style={styles.typeCContainer}>
         <View
           style={[styles.imageContainer, imageGridStyles.imageTypeCDimension]}>
           <Animated.View style={imageAAnimate}>
@@ -137,8 +125,11 @@ export default function ImageGrid({
           </Animated.View>
         </View>
         <Text style={imageGridStyles.title}>Product C</Text>
-      </View>
-      <View style={styles.typeDContainer}>
+      </Animated.View>
+      <Animated.View
+        layout={Layout}
+        entering={ZoomIn.delay(300).springify()}
+        style={styles.typeDContainer}>
         <View
           style={[styles.imageContainer, imageGridStyles.imageTypeDDimension]}>
           <Animated.View style={imageBAnimate}>
@@ -150,15 +141,15 @@ export default function ImageGrid({
           </Animated.View>
         </View>
         <Text style={imageGridStyles.title}>Product D</Text>
-      </View>
+      </Animated.View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: wp(75),
-    height: hp(40),
+    width: wp(85),
+    height: hp(41),
     flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'space-between',

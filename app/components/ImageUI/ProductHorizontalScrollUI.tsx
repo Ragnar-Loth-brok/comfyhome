@@ -1,13 +1,17 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import Animated, {
   SharedValue,
   useAnimatedScrollHandler,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import {hp, wp} from '../../utils/config';
+import colors from '../../utils/colors';
+import {fp, hp, wp, wpp} from '../../utils/config';
+import {HomeScreenTexts} from '../../utils/string';
+import defaultStyles from '../../utils/defaultStyles';
 import ImageGrid from './ImageGrid';
+import {FONT_TYPES} from '../../utils/style';
 
 type Props = {
   idY: number;
@@ -39,12 +43,25 @@ export default function ProductHorizontalScrollUI({
       showsHorizontalScrollIndicator={false}
       scrollEventThrottle={5}
       onScroll={scrollHandler}
-      style={styles.container}
-      contentContainerStyle={
-        {
-          // paddingLeft: wpp(20),
-        }
-      }>
+      decelerationRate={0.8}
+      style={styles.container}>
+      <View style={[{marginLeft: wpp(20)}]}>
+        <View style={[defaultStyles.child_center, styles.subContainer]}>
+          {HomeScreenTexts.categories[idY]
+            .split('')
+            .reverse()
+            .map((item, index) => (
+              <Text key={index} style={styles.title}>
+                {item}
+              </Text>
+            ))}
+        </View>
+        <View style={styles.dotContainer}>
+          {Array.from(Array(50), (_, i) => (
+            <View style={styles.dot} key={i} />
+          ))}
+        </View>
+      </View>
       <ImageGrid
         idX={0}
         totalItemX={3}
@@ -81,6 +98,26 @@ export default function ProductHorizontalScrollUI({
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: hp(5),
+    marginBottom: hp(2),
+    height: hp(50),
+    overflow: 'hidden',
+  },
+  subContainer: {
+    marginBottom: 5,
+  },
+  dot: {
+    width: 3,
+    height: 3,
+    borderRadius: 2.5,
+    backgroundColor: colors.headingColor,
+    marginVertical: 4.6,
+  },
+  dotContainer: {
+    alignItems: 'center',
+  },
+  title: {
+    transform: [{rotateZ: '270deg'}],
+    fontSize: fp(12),
+    fontFamily: FONT_TYPES.W_400,
   },
 });

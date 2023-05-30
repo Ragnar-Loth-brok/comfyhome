@@ -1,11 +1,11 @@
 import React, {useCallback} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, StatusBar} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import Container from '../../components/common/Container';
 import {RootStackParamList} from '../../utils/globalTypes';
 import colors from '../../utils/colors';
-import {hp, wp, wpp} from '../../utils/config';
+import {hp, wpp} from '../../utils/config';
 import {HomeScreenTexts} from '../../utils/string';
 import defaultStyles from '../../utils/defaultStyles';
 import ProductHorizontalScrollUI from '../../components/ImageUI/ProductHorizontalScrollUI';
@@ -39,6 +39,7 @@ export default function HomeScreen(): JSX.Element {
       scrollEventThrottle={10}
       style={{backgroundColor: colors.appBgPrimary}}>
       <Container>
+        <StatusBar animated barStyle="dark-content" hidden={false} />
         <View style={styles.container}>
           <View style={styles.menuContainer}>
             <View style={styles.dot} />
@@ -60,13 +61,19 @@ export default function HomeScreen(): JSX.Element {
           height={contentSize}
           idY={0}
           scrollY={scrollY}
-          totalItemY={2}
+          totalItemY={3}
         />
         <ProductHorizontalScrollUI
           height={contentSize}
           idY={1}
           scrollY={scrollY}
-          totalItemY={2}
+          totalItemY={3}
+        />
+        <ProductHorizontalScrollUI
+          height={contentSize}
+          idY={2}
+          scrollY={scrollY}
+          totalItemY={3}
         />
       </Container>
     </Animated.ScrollView>

@@ -35,19 +35,19 @@ export const imageGridStyles = StyleSheet.create({
     marginLeft: 5,
   },
   imageTypeADimension: {
-    width: wp(30),
+    width: wp(35),
     height: hp(10),
   },
   imageTypeBDimension: {
-    width: wp(40),
+    width: wp(45),
     height: hp(22),
   },
   imageTypeCDimension: {
-    width: wp(30),
+    width: wp(35),
     height: hp(22),
   },
   imageTypeDDimension: {
-    width: wp(40),
+    width: wp(45),
     height: hp(10),
   },
 });
