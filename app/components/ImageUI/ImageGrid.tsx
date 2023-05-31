@@ -11,6 +11,7 @@ import Animated, {
 import colors from '../../utils/colors';
 import {hp, wp, wpp} from '../../utils/config';
 import {imageGridStyles} from '../../utils/defaultStyles';
+import {ProuctType} from '../../utils/globalTypes';
 
 type Props = {
   idX: number;
@@ -21,6 +22,7 @@ type Props = {
   height: SharedValue<number>;
   totalItemX: number;
   totalItemY: number;
+  products: ProuctType[];
 };
 
 const SLIDEX = 30;
@@ -36,6 +38,7 @@ export default function ImageGrid({
   scrollY,
   totalItemX,
   totalItemY,
+  products,
 }: Props): JSX.Element {
   const imageAAnimate = useAnimatedStyle(() => {
     const translateX = interpolate(
@@ -77,71 +80,91 @@ export default function ImageGrid({
   }, []);
   return (
     <View style={styles.container}>
-      <Animated.View
-        layout={Layout}
-        entering={ZoomIn.delay(200).springify()}
-        style={styles.typeAContainer}>
-        <View
-          style={[styles.imageContainer, imageGridStyles.imageTypeADimension]}>
-          <Animated.View style={imageBAnimate}>
-            <Image
-              source={require('../../assets/images/mixed/chair4.png')}
-              style={[imageGridStyles.imageTypeADimension]}
-              resizeMode="contain"
-            />
-          </Animated.View>
-        </View>
-        <Text style={imageGridStyles.title}>Product A</Text>
-      </Animated.View>
+      {products[0] && (
+        <Animated.View
+          layout={Layout}
+          entering={ZoomIn.delay(200).springify()}
+          style={styles.typeAContainer}>
+          <View
+            style={[
+              styles.imageContainer,
+              imageGridStyles.imageTypeADimension,
+            ]}>
+            <Animated.View style={imageBAnimate}>
+              <Image
+                source={products[0].image}
+                style={[imageGridStyles.imageTypeADimension]}
+                resizeMode="contain"
+              />
+            </Animated.View>
+          </View>
+          <Text style={imageGridStyles.title}>{products[0].name}</Text>
+        </Animated.View>
+      )}
 
-      <Animated.View
-        layout={Layout}
-        entering={ZoomIn.delay(500).springify()}
-        style={styles.typeBContainer}>
-        <View
-          style={[styles.imageContainer, imageGridStyles.imageTypeBDimension]}>
-          <Animated.View style={imageAAnimate}>
-            <Image
-              source={require('../../assets/images/mixed/cabinet.png')}
-              style={imageGridStyles.imageTypeBDimension}
-              resizeMode="contain"
-            />
-          </Animated.View>
-        </View>
-        <Text style={imageGridStyles.title}>Product B</Text>
-      </Animated.View>
-      <Animated.View
-        layout={Layout}
-        entering={ZoomIn.delay(700).springify()}
-        style={styles.typeCContainer}>
-        <View
-          style={[styles.imageContainer, imageGridStyles.imageTypeCDimension]}>
-          <Animated.View style={imageAAnimate}>
-            <Image
-              source={require('../../assets/images/mixed/table2.png')}
-              style={imageGridStyles.imageTypeCDimension}
-              resizeMode="contain"
-            />
-          </Animated.View>
-        </View>
-        <Text style={imageGridStyles.title}>Product C</Text>
-      </Animated.View>
-      <Animated.View
-        layout={Layout}
-        entering={ZoomIn.delay(300).springify()}
-        style={styles.typeDContainer}>
-        <View
-          style={[styles.imageContainer, imageGridStyles.imageTypeDDimension]}>
-          <Animated.View style={imageBAnimate}>
-            <Image
-              source={require('../../assets/images/mixed/tableset.png')}
-              style={imageGridStyles.imageTypeDDimension}
-              resizeMode="contain"
-            />
-          </Animated.View>
-        </View>
-        <Text style={imageGridStyles.title}>Product D</Text>
-      </Animated.View>
+      {products[1] && (
+        <Animated.View
+          layout={Layout}
+          entering={ZoomIn.delay(500).springify()}
+          style={styles.typeBContainer}>
+          <View
+            style={[
+              styles.imageContainer,
+              imageGridStyles.imageTypeBDimension,
+            ]}>
+            <Animated.View style={imageAAnimate}>
+              <Image
+                source={products[1].image}
+                style={imageGridStyles.imageTypeBDimension}
+                resizeMode="contain"
+              />
+            </Animated.View>
+          </View>
+          <Text style={imageGridStyles.title}>{products[1].name}</Text>
+        </Animated.View>
+      )}
+      {products[2] && (
+        <Animated.View
+          layout={Layout}
+          entering={ZoomIn.delay(700).springify()}
+          style={styles.typeCContainer}>
+          <View
+            style={[
+              styles.imageContainer,
+              imageGridStyles.imageTypeCDimension,
+            ]}>
+            <Animated.View style={imageAAnimate}>
+              <Image
+                source={products[2].image}
+                style={imageGridStyles.imageTypeCDimension}
+                resizeMode="contain"
+              />
+            </Animated.View>
+          </View>
+          <Text style={imageGridStyles.title}>{products[2].name}</Text>
+        </Animated.View>
+      )}
+      {products[3] && (
+        <Animated.View
+          layout={Layout}
+          entering={ZoomIn.delay(300).springify()}
+          style={styles.typeDContainer}>
+          <View
+            style={[
+              styles.imageContainer,
+              imageGridStyles.imageTypeDDimension,
+            ]}>
+            <Animated.View style={imageBAnimate}>
+              <Image
+                source={products[3].image}
+                style={imageGridStyles.imageTypeDDimension}
+                resizeMode="contain"
+              />
+            </Animated.View>
+          </View>
+          <Text style={imageGridStyles.title}>{products[3].name}</Text>
+        </Animated.View>
+      )}
     </View>
   );
 }

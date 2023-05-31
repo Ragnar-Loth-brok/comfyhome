@@ -7,11 +7,12 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import colors from '../../utils/colors';
-import {fp, hp, wp, wpp} from '../../utils/config';
+import {fp, hp, splitArray, wp, wpp} from '../../utils/config';
 import {HomeScreenTexts} from '../../utils/string';
 import defaultStyles from '../../utils/defaultStyles';
 import ImageGrid from './ImageGrid';
 import {FONT_TYPES} from '../../utils/style';
+import data from '../../utils/dummyProductDetails';
 
 type Props = {
   idY: number;
@@ -20,6 +21,8 @@ type Props = {
   height: SharedValue<number>;
 };
 const DEVICE_WIDTH = wp(100);
+
+const products = splitArray(data.mixed, 4);
 
 export default function ProductHorizontalScrollUI({
   height,
@@ -62,36 +65,20 @@ export default function ProductHorizontalScrollUI({
           ))}
         </View>
       </View>
-      <ImageGrid
-        idX={0}
-        totalItemX={3}
-        scrollX={scrollX}
-        width={contentSize}
-        height={height}
-        scrollY={scrollY}
-        idY={idY}
-        totalItemY={totalItemY}
-      />
-      <ImageGrid
-        idX={1}
-        totalItemX={3}
-        scrollX={scrollX}
-        width={contentSize}
-        height={height}
-        scrollY={scrollY}
-        idY={idY}
-        totalItemY={totalItemY}
-      />
-      <ImageGrid
-        idX={2}
-        totalItemX={3}
-        scrollX={scrollX}
-        width={contentSize}
-        height={height}
-        scrollY={scrollY}
-        idY={idY}
-        totalItemY={totalItemY}
-      />
+      {products.map((item, index) => (
+        <ImageGrid
+          key={index}
+          idX={index}
+          totalItemX={products.length}
+          scrollX={scrollX}
+          width={contentSize}
+          height={height}
+          scrollY={scrollY}
+          idY={idY}
+          totalItemY={totalItemY}
+          products={item}
+        />
+      ))}
     </Animated.ScrollView>
   );
 }

@@ -10,4 +10,23 @@ type RootStackParamList = {
   Product: undefined;
 };
 
-export type {SharedElementRouteProps, RootStackParamList};
+type ProuctType = {
+  id: number;
+  name: string;
+  image: any;
+  desc?: string;
+  category?: string;
+};
+
+type Categories = {
+  mixed: ProuctType[];
+  lamps: ProuctType[];
+  chairs: ProuctType[];
+};
+
+export type {
+  SharedElementRouteProps,
+  RootStackParamList,
+  Categories,
+  ProuctType,
+};

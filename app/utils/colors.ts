@@ -23,4 +23,5 @@ export default {
   circleBg: '#E8E4D9',
   buttonBG: '#5C8178',
   imageCardBg: '#F2F0E9',
+  secondaryBg: '#EAE4D8',
 };

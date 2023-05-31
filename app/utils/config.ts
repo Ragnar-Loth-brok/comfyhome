@@ -30,3 +30,20 @@ export const hpp = (val: number) => {
 export const wpp = (val: number) => {
   return val * Width_SF;
 };
+
+export const splitArray = (list: any[], size: number) => {
+  let arr = [];
+  const length = list.length;
+  const multiples = Math.trunc(list.length / size);
+  const remainder = list.length % size;
+
+  for (let i = 0; i < multiples; i++) {
+    arr.push(list.slice(i * size, (i + 1) * size));
+  }
+
+  if (remainder > 0) {
+    arr.push(list.slice(length - remainder, length));
+  }
+
+  return arr;
+};

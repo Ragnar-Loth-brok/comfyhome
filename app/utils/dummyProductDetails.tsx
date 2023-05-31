@@ -1,18 +1,6 @@
-type ProuctType = {
-  id: number;
-  name: string;
-  image: any;
-  desc?: string;
-  category?: string;
-};
+import {Categories} from './globalTypes';
 
-type Categories = {
-  mixed: ProuctType[];
-  lamps: ProuctType[];
-  chairs: ProuctType[];
-};
-
-export const data: Categories = {
+const data: Categories = {
   mixed: [
     {
       id: 1,
@@ -69,11 +57,11 @@ export const data: Categories = {
       name: 'Lamp',
       image: require('../assets/images/mixed/lamp.png'),
     },
-    {
-      id: 12,
-      name: 'Lamp',
-      image: require('../assets/images/mixed/lamp.png'),
-    },
+    // {
+    //   id: 12,
+    //   name: 'Lamp',
+    //   image: require('../assets/images/mixed/lamp.png'),
+    // },
   ],
   lamps: [
     {
@@ -120,3 +108,5 @@ export const data: Categories = {
     },
   ],
 };
+
+export default data;
