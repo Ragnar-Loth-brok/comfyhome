@@ -19,11 +19,27 @@ type Categories = {
   chairs: ProductType[];
 };
 
+type Dimensions = {
+  height: number;
+  width: number;
+  pageX: number;
+  pageY: number;
+  x: number;
+  y: number;
+};
+
+type ImageDimensions = {
+  x: number;
+  y: number;
+};
+
 type RootStackParamList = {
   Splash: undefined;
   Home: undefined;
   Product: {
     item: ProductType;
+    dimensions: Dimensions;
+    imageDimensions: ImageDimensions;
   };
   AppFlow: undefined;
 };
@@ -33,4 +49,6 @@ export type {
   RootStackParamList,
   Categories,
   ProductType,
+  Dimensions,
+  ImageDimensions,
 };

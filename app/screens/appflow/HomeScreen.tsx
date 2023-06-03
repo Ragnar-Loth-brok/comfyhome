@@ -1,34 +1,46 @@
 import React, {useCallback, useEffect} from 'react';
 import {View, Text, StyleSheet, StatusBar} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import Container from '../../components/common/Container';
-import {RootStackParamList, ProductType} from '../../utils/globalTypes';
+import {
+  RootStackParamList,
+  ProductType,
+  Dimensions,
+  ImageDimensions,
+} from '../../utils/globalTypes';
 import colors from '../../utils/colors';
 import {hp, wpp} from '../../utils/config';
 import {HomeScreenTexts} from '../../utils/string';
 import defaultStyles from '../../utils/defaultStyles';
 import ProductHorizontalScrollUI from '../../components/ImageUI/ProductHorizontalScrollUI';
 import Animated, {
-  measure,
-  runOnUI,
-  useAnimatedRef,
+  interpolate,
   useAnimatedScrollHandler,
+  useAnimatedStyle,
   useSharedValue,
   withSpring,
+  withTiming,
 } from 'react-native-reanimated';
 
 const DEVICE_HEIGHT = hp(100);
 
 export default function HomeScreen(): JSX.Element {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  const aref = useAnimatedRef();
   const statusBarHeight = useSharedValue(0);
+  const focused = useSharedValue(0);
+  const isFocused = useIsFocused();
 
   const productNavigation = useCallback(
-    (item: ProductType) => {
+    (
+      item: ProductType,
+      dimensions: Dimensions,
+      imageDimensions: ImageDimensions,
+    ) => {
       navigation.navigate('Product', {
         item,
+        dimensions,
+        imageDimensions,
       });
     },
     [navigation],
@@ -42,24 +54,31 @@ export default function HomeScreen(): JSX.Element {
     contentSize.value = withSpring(event.contentSize.height - DEVICE_HEIGHT);
   });
 
-  // const getStatusBarHeight = () => {
-  //   'worklet';
-  //   const measured = measure(aref);
-  //   if (measured) {
-  //     console.log(aref);
-  //   }
-  // };
+  const containerAnimation = useAnimatedStyle(() => {
+    const opacity = interpolate(focused.value, [0, 1], [0.8, 1]);
+    return {
+      opacity,
+    };
+  }, []);
 
-  // useEffect(() => {
-  //   runOnUI(getStatusBarHeight)();
-  // }, []);
+  useEffect(() => {
+    if (isFocused) {
+      focused.value = withTiming(1, {duration: 1000});
+    } else {
+      focused.value = 0;
+    }
+    return () => {
+      focused.value = 0;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFocused]);
 
   return (
     <Animated.ScrollView
       showsVerticalScrollIndicator={false}
       onScroll={scrollHandler}
       scrollEventThrottle={10}
-      style={{backgroundColor: colors.appBgPrimary}}>
+      style={[{backgroundColor: colors.appBgPrimary}]}>
       <Container>
         <StatusBar animated barStyle="dark-content" hidden={false} />
         <Animated.View

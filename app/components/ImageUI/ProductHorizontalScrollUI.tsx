@@ -10,7 +10,11 @@ import colors from '../../utils/colors';
 import {fp, hp, splitArray, wp, wpp} from '../../utils/config';
 import {HomeScreenTexts} from '../../utils/string';
 import defaultStyles from '../../utils/defaultStyles';
-import {ProductType} from '../../utils/globalTypes';
+import {
+  Dimensions,
+  ImageDimensions,
+  ProductType,
+} from '../../utils/globalTypes';
 import ImageGrid from './ImageGrid';
 import {FONT_TYPES} from '../../utils/style';
 import data from '../../utils/dummyProductDetails';
@@ -20,7 +24,11 @@ type Props = {
   totalItemY: number;
   scrollY: SharedValue<number>;
   height: SharedValue<number>;
-  onPress: (item: ProductType) => void;
+  onPress: (
+    item: ProductType,
+    dimensions: Dimensions,
+    imageDimensions: ImageDimensions,
+  ) => void;
   statusBarHeight: SharedValue<number>;
 };
 const DEVICE_WIDTH = wp(100);

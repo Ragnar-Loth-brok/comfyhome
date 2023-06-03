@@ -17,11 +17,14 @@ import Animated, {
   withTiming,
   ZoomIn,
 } from 'react-native-reanimated';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../../utils/colors';
 import {hp, ProductScreenConstants, wp, wpp} from '../../utils/config';
 import {imageGridStyles} from '../../utils/defaultStyles';
-import {ProductType} from '../../utils/globalTypes';
+import {
+  Dimensions,
+  ImageDimensions,
+  ProductType,
+} from '../../utils/globalTypes';
 
 type Props = {
   idX: number;
@@ -33,25 +36,17 @@ type Props = {
   totalItemX: number;
   totalItemY: number;
   products: ProductType[];
-  onPress: (item: ProductType) => void;
+  onPress: (
+    item: ProductType,
+    dimensions: Dimensions,
+    imageDimensions: ImageDimensions,
+  ) => void;
   statusBarHeight: SharedValue<number>;
 };
 
 const SLIDEX = 30;
 const SLIDEY = 30;
 const SLIDEY_B = 15;
-
-const BORDER_RADIUS = wp(5);
-const PADDING_TOP = hp(5);
-
-type Dimensions = {
-  height: number;
-  width: number;
-  pageX: number;
-  pageY: number;
-  x: number;
-  y: number;
-};
 
 export default function ImageGrid({
   idX,
@@ -66,9 +61,23 @@ export default function ImageGrid({
   onPress,
   statusBarHeight,
 }: Props): JSX.Element {
+  const [paramImageDimension, setParamImageDimension] =
+    useState<ImageDimensions>({x: 0, y: 0});
+  const [navigateUser, setNavigateUser] = useState(false);
+  const [visibleModal, setModalVisible] = useState<boolean>(false);
+  const [tappedItem, setTappedItem] = useState<ProductType | null>();
+  const [paramDimension, setParamDimension] = useState<Dimensions>({
+    height: 0,
+    pageX: 0,
+    pageY: 0,
+    width: 0,
+    x: 0,
+    y: 0,
+  });
+
   const tappedId = useSharedValue(0);
   const animateTransition = useSharedValue(0);
-  const [navigateUser, setNavigateUser] = useState(false);
+  // const image
   const tappedDimensions = useSharedValue<Dimensions>({
     height: 0,
     width: 0,
@@ -77,13 +86,15 @@ export default function ImageGrid({
     x: 0,
     y: 0,
   });
-  const aref_1 = useAnimatedRef();
-  const aref_2 = useAnimatedRef();
-  const aref_3 = useAnimatedRef();
-  const aref_4 = useAnimatedRef();
+  const aref_1 = useAnimatedRef<any>();
+  const aref_2 = useAnimatedRef<any>();
+  const aref_3 = useAnimatedRef<any>();
+  const aref_4 = useAnimatedRef<any>();
 
-  const [visibleModal, setModalVisible] = useState<boolean>(false);
-  const [tappedItem, setTappedItem] = useState<ProductType>();
+  const aref_image_1 = useAnimatedRef<any>();
+  const aref_image_2 = useAnimatedRef<any>();
+  const aref_image_3 = useAnimatedRef<any>();
+  const aref_image_4 = useAnimatedRef<any>();
 
   const imageAAnimate = useAnimatedStyle(() => {
     const translateX = interpolate(
@@ -124,36 +135,48 @@ export default function ImageGrid({
     };
   }, []);
 
-  const toggleModal = useCallback(async () => {
-    await setModalVisible(boolVal => !boolVal);
-    animateTransition.value = withDelay(300, withTiming(1, {duration: 500}));
+  const toggleModal = useCallback(() => {
+    animateTransition.value = withDelay(10, withTiming(1, {duration: 150}));
+    setModalVisible(boolVal => !boolVal);
     setTimeout(() => {
       setNavigateUser(true);
-    }, 1000);
+    }, 350);
   }, []);
 
   const getDimensions = () => {
     'worklet';
     let dimensions;
+    let imagePageValues;
     if (tappedId.value === 1) {
       dimensions = measure(aref_1);
+      imagePageValues = measure(aref_image_1);
     } else if (tappedId.value === 2) {
       dimensions = measure(aref_2);
+      imagePageValues = measure(aref_image_2);
     } else if (tappedId.value === 3) {
       dimensions = measure(aref_3);
+      imagePageValues = measure(aref_image_3);
     } else if (tappedId.value === 4) {
       dimensions = measure(aref_4);
+      imagePageValues = measure(aref_image_4);
     }
 
     if (dimensions) {
       tappedDimensions.value = dimensions;
+      runOnJS(setParamDimension)(dimensions);
       runOnJS(toggleModal)();
+    }
+    if (imagePageValues) {
+      runOnJS(setParamImageDimension)({
+        x: imagePageValues.x,
+        y: imagePageValues.y,
+      });
     }
   };
 
-  const onTap = useCallback(async (item: ProductType, id: 1 | 2 | 3 | 4) => {
+  const onTap = useCallback((item: ProductType, id: 1 | 2 | 3 | 4) => {
     tappedId.value = id;
-    await setTappedItem(item);
+    setTappedItem(item);
   }, []);
 
   const tappedStyles = useAnimatedStyle(() => {
@@ -184,17 +207,18 @@ export default function ImageGrid({
       [tappedDimensions.value.pageX, 0],
     );
 
-    const paddingTop = interpolate(
-      animateTransition.value,
-      [0, 0.5],
-      [0, PADDING_TOP + statusBarHeight.value],
-      {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
-    );
-
-    const border_radius = interpolate(
+    const border_radius_bottom = interpolate(
       animateTransition.value,
       [0, 1],
-      [BORDER_RADIUS, BORDER_RADIUS + 20],
+      [
+        ProductScreenConstants.BORDER_RADIUS_INIT,
+        ProductScreenConstants.BORDER_RADIUS_FINAL,
+      ],
+    );
+    const border_radius_top = interpolate(
+      animateTransition.value,
+      [0, 1],
+      [ProductScreenConstants.BORDER_RADIUS_INIT, 0],
     );
 
     const backgroundColor = interpolateColor(
@@ -208,8 +232,10 @@ export default function ImageGrid({
       width: x,
       left,
       top,
-      paddingTop,
-      borderRadius: border_radius,
+      borderTopRightRadius: border_radius_top,
+      borderTopLeftRadius: border_radius_top,
+      borderBottomLeftRadius: border_radius_bottom,
+      borderBottomRightRadius: border_radius_bottom,
       backgroundColor,
     };
   }, []);
@@ -219,16 +245,36 @@ export default function ImageGrid({
       animateTransition.value,
       [0, 1],
       [tappedDimensions.value.height, ProductScreenConstants.SWIPE_HEIGHT],
+      {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
     );
     const x = interpolate(
       animateTransition.value,
       [0, 1],
       [tappedDimensions.value.width, ProductScreenConstants.DEVICE_FUll_WIDTH],
+      {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
+    );
+
+    const top = interpolate(
+      animateTransition.value,
+      [0, 1],
+      [
+        tappedDimensions.value.pageY,
+        ProductScreenConstants.PADDING_TOP + statusBarHeight.value,
+      ],
+      {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
+    );
+    const left = interpolate(
+      animateTransition.value,
+      [0, 1],
+      [tappedDimensions.value.pageX, 0],
+      {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
     );
 
     return {
       height: y,
       width: x,
+      top,
+      left,
     };
   });
 
@@ -240,7 +286,7 @@ export default function ImageGrid({
 
   useEffect(() => {
     if (navigateUser && tappedItem) {
-      onPress(tappedItem);
+      onPress(tappedItem, paramDimension, paramImageDimension);
       setModalVisible(false);
       setTappedItem(null);
       setNavigateUser(false);
@@ -255,7 +301,6 @@ export default function ImageGrid({
           layout={Layout}
           entering={ZoomIn.delay(200).springify()}
           style={styles.typeAContainer}>
-          {/* <SharedElement id={`${products[0].uid}${idX}${idY}`}> */}
           <Animated.View ref={aref_1}>
             <Pressable
               style={[
@@ -263,7 +308,7 @@ export default function ImageGrid({
                 imageGridStyles.imageTypeADimension,
               ]}
               onPress={() => onTap(products[0], 1)}>
-              <Animated.View style={imageBAnimate}>
+              <Animated.View ref={aref_image_1} style={imageBAnimate}>
                 <Image
                   source={products[0].image}
                   style={[imageGridStyles.imageTypeADimension]}
@@ -272,7 +317,6 @@ export default function ImageGrid({
               </Animated.View>
             </Pressable>
           </Animated.View>
-          {/* </SharedElement> */}
           <Text style={imageGridStyles.title}>{products[0].name}</Text>
         </Animated.View>
       )}
@@ -282,7 +326,6 @@ export default function ImageGrid({
           layout={Layout}
           entering={ZoomIn.delay(500).springify()}
           style={styles.typeBContainer}>
-          {/* <SharedElement id={`${products[1].uid}${idX}${idY}`}> */}
           <Animated.View ref={aref_2}>
             <Pressable
               onPress={() => onTap(products[1], 2)}
@@ -290,7 +333,7 @@ export default function ImageGrid({
                 styles.imageContainer,
                 imageGridStyles.imageTypeBDimension,
               ]}>
-              <Animated.View style={imageAAnimate}>
+              <Animated.View ref={aref_image_2} style={imageAAnimate}>
                 <Image
                   source={products[1].image}
                   style={imageGridStyles.imageTypeBDimension}
@@ -299,7 +342,6 @@ export default function ImageGrid({
               </Animated.View>
             </Pressable>
           </Animated.View>
-          {/* </SharedElement> */}
           <Text style={imageGridStyles.title}>{products[1].name}</Text>
         </Animated.View>
       )}
@@ -308,7 +350,6 @@ export default function ImageGrid({
           layout={Layout}
           entering={ZoomIn.delay(700).springify()}
           style={styles.typeCContainer}>
-          {/* <SharedElement id={`${products[2].uid}${idX}${idY}`}> */}
           <Animated.View ref={aref_3}>
             <Pressable
               onPress={() => onTap(products[2], 3)}
@@ -316,7 +357,7 @@ export default function ImageGrid({
                 styles.imageContainer,
                 imageGridStyles.imageTypeCDimension,
               ]}>
-              <Animated.View style={imageAAnimate}>
+              <Animated.View ref={aref_image_3} style={imageAAnimate}>
                 <Image
                   source={products[2].image}
                   style={imageGridStyles.imageTypeCDimension}
@@ -325,7 +366,6 @@ export default function ImageGrid({
               </Animated.View>
             </Pressable>
           </Animated.View>
-          {/* </SharedElement> */}
           <Text style={imageGridStyles.title}>{products[2].name}</Text>
         </Animated.View>
       )}
@@ -334,7 +374,6 @@ export default function ImageGrid({
           layout={Layout}
           entering={ZoomIn.delay(300).springify()}
           style={styles.typeDContainer}>
-          {/* <SharedElement id={`${products[3].uid}${idX}${idY}`}> */}
           <Animated.View ref={aref_4}>
             <Pressable
               onPress={() => onTap(products[3], 4)}
@@ -342,7 +381,7 @@ export default function ImageGrid({
                 styles.imageContainer,
                 imageGridStyles.imageTypeDDimension,
               ]}>
-              <Animated.View style={imageBAnimate}>
+              <Animated.View ref={aref_image_4} style={imageBAnimate}>
                 <Image
                   source={products[3].image}
                   style={imageGridStyles.imageTypeDDimension}
@@ -351,32 +390,21 @@ export default function ImageGrid({
               </Animated.View>
             </Pressable>
           </Animated.View>
-          {/* </SharedElement> */}
           <Text style={imageGridStyles.title}>{products[3].name}</Text>
         </Animated.View>
       )}
       <Modal transparent visible={visibleModal} animationType="fade">
-        <SafeAreaView>
-          <Animated.View
-            style={[
-              {
-                backgroundColor: colors.imageCardBg,
-                // backgroundColor: 'red',
-                position: 'absolute',
-                borderRadius: wp(5),
-              },
-              tappedStyles,
-            ]}>
-            {tappedItem && (
-              <Animated.Image
-                layout={Layout}
-                source={tappedItem?.image}
-                style={[tappedImageStyles]}
-                resizeMode="contain"
-              />
-            )}
-          </Animated.View>
-        </SafeAreaView>
+        <Animated.View layout={Layout} style={[styles.modalContainer]}>
+          <Animated.View style={[styles.modalSubcontainer, tappedStyles]} />
+          {tappedItem && (
+            <Animated.Image
+              layout={Layout}
+              source={tappedItem?.image}
+              style={[tappedImageStyles]}
+              resizeMode="contain"
+            />
+          )}
+        </Animated.View>
       </Modal>
     </View>
   );
@@ -416,5 +444,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     bottom: 0,
+  },
+  modalContainer: {
+    backgroundColor: colors.appBgPrimary,
+    flex: 1,
+  },
+  modalSubcontainer: {
+    backgroundColor: colors.imageCardBg,
+    position: 'absolute',
+    borderRadius: ProductScreenConstants.BORDER_RADIUS_INIT,
   },
 });

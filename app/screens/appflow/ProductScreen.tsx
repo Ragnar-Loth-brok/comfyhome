@@ -1,26 +1,39 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useCallback, useEffect, useState} from 'react';
-import {View, Text, StatusBar, Pressable, StyleSheet} from 'react-native';
 import {
-  ParamListBase,
-  RouteProp,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
+  View,
+  Text,
+  StatusBar,
+  Pressable,
+  StyleSheet,
+  Modal,
+} from 'react-native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import Container from '../../components/common/Container';
-import {ProductType, RootStackParamList} from '../../utils/globalTypes';
-import ButtonUI from '../../components/common/ButtonUI';
+import {
+  Dimensions,
+  ImageDimensions,
+  ProductType,
+  RootStackParamList,
+} from '../../utils/globalTypes';
 import BackIcon from '../../assets/icons/back.svg';
 import HeartOutlineIcon from '../../assets/icons/heart-outline.svg';
 import HeartFillIcon from '../../assets/icons/heart.svg';
 import Animated, {
+  Extrapolate,
   interpolate,
+  interpolateColor,
+  Layout,
+  measure,
+  runOnJS,
+  runOnUI,
+  useAnimatedRef,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import data from '../../utils/dummyProductDetails';
 import {hp, wp} from '../../utils/config';
 import {
   Gesture,
@@ -30,28 +43,52 @@ import {
 import colors from '../../utils/colors';
 import ProductDetails from '../../components/product/ProductDetails';
 import {ProductScreenConstants} from '../../utils/config';
-import {SharedElement} from 'react-navigation-shared-element';
-
-// const SWIPE_HEIGHT = hp(50);
-// const CONTAINER_VIEW_INIT_HEIGHT = hp(85);
-// const CONTAINER_VIEW_FINAL_HEIGHT = hp(35);
-// const IMAGE_FINAL_HEIGHT = hp(30);
 
 export default function ProductScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList>>();
+  const [visibleModal, setModalVisible] = useState(false);
+  const [hardwareBackPress, setHardwareBackPress] = useState(true);
+  const aref = useAnimatedRef<any>();
+  const imageRef = useAnimatedRef<any>();
   const [liked, setLiked] = useState(false);
-  const [product, setProduct] = useState<ProductType>(route.params.item);
+  const [product, setProduct] = useState<ProductType>();
+  const childDimension = useSharedValue<Dimensions>({
+    height: 0,
+    width: 0,
+    pageX: 0,
+    pageY: 0,
+    x: 0,
+    y: 0,
+  });
+  const tappedDimensions = useSharedValue<Dimensions>({
+    height: 0,
+    width: 0,
+    pageX: 0,
+    pageY: 0,
+    x: 0,
+    y: 0,
+  });
+  const parentDimensions = useSharedValue<Dimensions>({
+    height: 0,
+    width: 0,
+    pageX: 0,
+    pageY: 0,
+    x: 0,
+    y: 0,
+  });
+  const imageContainerDimensions = useSharedValue<ImageDimensions>({
+    x: 0,
+    y: 0,
+  });
 
   const sharedValue = useSharedValue(0);
   const position = useSharedValue(0);
-
-  const homeNavigation = useCallback(() => {
-    navigation.navigate('Home');
-  }, [navigation]);
+  const animateTransition = useSharedValue(0);
 
   const goBack = useCallback(() => {
     navigation.goBack();
+    setModalVisible(false);
   }, [navigation]);
 
   const toggleLike = useCallback(() => {
@@ -128,21 +165,182 @@ export default function ProductScreen() {
     };
   }, []);
 
+  const tappedStyles = useAnimatedStyle(() => {
+    const y = interpolate(
+      animateTransition.value,
+      [0, 1],
+      [
+        parentDimensions.value.pageY + parentDimensions.value.height,
+        tappedDimensions.value.height,
+      ],
+    );
+    const x = interpolate(
+      animateTransition.value,
+      [0, 1],
+      [ProductScreenConstants.DEVICE_FUll_WIDTH, tappedDimensions.value.width],
+    );
+
+    const top = interpolate(
+      animateTransition.value,
+      [0, 1],
+      [0, tappedDimensions.value.pageY],
+    );
+
+    const left = interpolate(
+      animateTransition.value,
+      [0, 1],
+      [0, tappedDimensions.value.pageX],
+    );
+
+    // const paddingTop = interpolate(
+    //   animateTransition.value,
+    //   [0, 0.5],
+    //   [0, PADDING_TOP + statusBarHeight.value],
+    //   {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
+    // );
+
+    const border_radius = interpolate(
+      animateTransition.value,
+      [0, 1],
+      [
+        ProductScreenConstants.BORDER_RADIUS_FINAL,
+        ProductScreenConstants.BORDER_RADIUS_INIT,
+      ],
+    );
+
+    const backgroundColor = interpolateColor(
+      animateTransition.value,
+      [0, 1],
+      [colors.secondaryBg, colors.imageCardBg],
+    );
+
+    return {
+      height: y,
+      width: x,
+      left,
+      top,
+      // paddingTop,
+      borderRadius: border_radius,
+      backgroundColor,
+    };
+  }, []);
+
+  const tappedImageStyles = useAnimatedStyle(() => {
+    const y = interpolate(
+      animateTransition.value,
+      [0, 1],
+      [childDimension.value.height, tappedDimensions.value.height],
+      {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
+    );
+    const x = interpolate(
+      animateTransition.value,
+      [0, 1],
+      [childDimension.value.width, tappedDimensions.value.width],
+      {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
+    );
+
+    const top = interpolate(
+      animateTransition.value,
+      [0, 1],
+      [
+        ProductScreenConstants.PADDING_TOP + parentDimensions.value.pageY,
+        tappedDimensions.value.pageY,
+      ],
+      {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
+    );
+    const left = interpolate(
+      animateTransition.value,
+      [0, 1],
+      [0, tappedDimensions.value.pageX],
+      {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
+    );
+
+    const translateX = interpolate(
+      animateTransition.value,
+      [0, 1],
+      [0, imageContainerDimensions.value.x],
+      {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
+    );
+    const translateY = interpolate(
+      animateTransition.value,
+      [0, 1],
+      [0, imageContainerDimensions.value.y],
+      {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
+    );
+
+    return {
+      height: y,
+      width: x,
+      top,
+      left,
+      transform: [{translateX}, {translateY}],
+    };
+  });
+
+  const getDimensions = () => {
+    'worklet';
+    const dimensions = measure(aref);
+    const imageMeasure = measure(imageRef);
+    if (dimensions) {
+      parentDimensions.value = dimensions;
+      // runOnJS(setParamDimension)(dimensions);
+      // runOnJS(toggleModal)();
+      runOnJS(setModalVisible)(true);
+    }
+    if (imageMeasure) {
+      childDimension.value = imageMeasure;
+    }
+  };
+
+  const onTap = useCallback(() => {
+    setHardwareBackPress(false);
+    runOnUI(getDimensions)();
+  }, []);
+
   useEffect(() => {
     if (route.params && route.params.item) {
       setProduct(route.params.item);
     }
-    // console.log('item======', route.params.item);
+    if (route.params && route.params.dimensions) {
+      tappedDimensions.value = route.params.dimensions;
+    }
+    if (route.params && route.params.imageDimensions) {
+      imageContainerDimensions.value = route.params.imageDimensions;
+    }
   }, [route.params]);
+
+  useEffect(() => {
+    if (visibleModal) {
+      animateTransition.value = withTiming(1, {duration: 100});
+      setTimeout(goBack, 300);
+    }
+    return () => {
+      animateTransition.value = 0;
+    };
+  }, [visibleModal]);
+
+  React.useEffect(
+    () =>
+      navigation.addListener('beforeRemove', e => {
+        if (!hardwareBackPress) {
+          return null;
+        }
+        e.preventDefault();
+        onTap();
+      }),
+    [hardwareBackPress, navigation],
+  );
 
   return (
     <Container backgroundColor={colors.secondaryBg}>
       <StatusBar animated barStyle="dark-content" hidden={false} />
       <GestureHandlerRootView>
         <View style={styles.parentBg}>
-          <Animated.View style={[styles.container, animateContainerView]}>
+          <Animated.View
+            ref={aref}
+            style={[styles.container, animateContainerView]}>
             <View style={styles.headerContainer}>
-              <Pressable onPress={goBack} style={styles.iconContainer}>
+              <Pressable onPress={onTap} style={styles.iconContainer}>
                 <BackIcon />
               </Pressable>
               <Text>My title</Text>
@@ -150,17 +348,14 @@ export default function ProductScreen() {
                 {liked ? <HeartFillIcon /> : <HeartOutlineIcon />}
               </Pressable>
             </View>
-            {/* <SharedElement id={product.uid}> */}
-            <View>
-              {product && (
-                <Animated.Image
-                  source={product.image}
-                  style={[animateImageView, styles.imageDimension]}
-                  resizeMode="contain"
-                />
-              )}
-            </View>
-            {/* </SharedElement> */}
+            {product && (
+              <Animated.Image
+                ref={imageRef}
+                source={product.image}
+                style={[animateImageView, styles.imageDimension]}
+                resizeMode="contain"
+              />
+            )}
             <ProductDetails position={position} />
           </Animated.View>
           <Animated.View>
@@ -172,6 +367,19 @@ export default function ProductScreen() {
           </Animated.View>
         </View>
       </GestureHandlerRootView>
+      <Modal transparent visible={visibleModal} animationType="fade">
+        <Animated.View layout={Layout} style={[styles.modalContainer]}>
+          <Animated.View style={[styles.modalSubcontainer, tappedStyles]} />
+          {product && (
+            <Animated.Image
+              layout={Layout}
+              source={product.image}
+              style={[tappedImageStyles]}
+              resizeMode="contain"
+            />
+          )}
+        </Animated.View>
+      </Modal>
     </Container>
   );
 }
@@ -183,12 +391,10 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: wp(7),
     overflow: 'hidden',
     elevation: 1,
-    // backgroundColor: colors.secondaryBg,
+    transform: [{perspective: 300}],
   },
   parentBg: {
-    backgroundColor: colors.appBg,
-    // backgroundColor: colors.imageCardBg,
-    // backgroundColor: colors.appBg,
+    backgroundColor: colors.appBgPrimary,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -212,4 +418,13 @@ const styles = StyleSheet.create({
   // likeIconContainer: {
   //   padding: hp(2),
   // },
+  modalContainer: {
+    backgroundColor: colors.appBgPrimary,
+    flex: 1,
+  },
+  modalSubcontainer: {
+    backgroundColor: colors.imageCardBg,
+    position: 'absolute',
+    borderRadius: wp(5),
+  },
 });
