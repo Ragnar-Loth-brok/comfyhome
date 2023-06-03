@@ -10,6 +10,7 @@ import colors from '../../utils/colors';
 import {fp, hp, splitArray, wp, wpp} from '../../utils/config';
 import {HomeScreenTexts} from '../../utils/string';
 import defaultStyles from '../../utils/defaultStyles';
+import {ProductType} from '../../utils/globalTypes';
 import ImageGrid from './ImageGrid';
 import {FONT_TYPES} from '../../utils/style';
 import data from '../../utils/dummyProductDetails';
@@ -19,6 +20,8 @@ type Props = {
   totalItemY: number;
   scrollY: SharedValue<number>;
   height: SharedValue<number>;
+  onPress: (item: ProductType) => void;
+  statusBarHeight: SharedValue<number>;
 };
 const DEVICE_WIDTH = wp(100);
 
@@ -29,6 +32,8 @@ export default function ProductHorizontalScrollUI({
   scrollY,
   idY,
   totalItemY,
+  onPress,
+  statusBarHeight,
 }: Props): JSX.Element {
   const scrollX = useSharedValue(0);
   const contentSize = useSharedValue(DEVICE_WIDTH);
@@ -77,6 +82,8 @@ export default function ProductHorizontalScrollUI({
           idY={idY}
           totalItemY={totalItemY}
           products={item}
+          onPress={onPress}
+          statusBarHeight={statusBarHeight}
         />
       ))}
     </Animated.ScrollView>

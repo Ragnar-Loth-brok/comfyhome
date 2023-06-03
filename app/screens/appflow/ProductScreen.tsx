@@ -1,9 +1,14 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {View, Text, StatusBar, Pressable, StyleSheet} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {
+  ParamListBase,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import Container from '../../components/common/Container';
-import {RootStackParamList} from '../../utils/globalTypes';
+import {ProductType, RootStackParamList} from '../../utils/globalTypes';
 import ButtonUI from '../../components/common/ButtonUI';
 import BackIcon from '../../assets/icons/back.svg';
 import HeartOutlineIcon from '../../assets/icons/heart-outline.svg';
@@ -23,15 +28,20 @@ import {
   GestureHandlerRootView,
 } from 'react-native-gesture-handler';
 import colors from '../../utils/colors';
+import ProductDetails from '../../components/product/ProductDetails';
+import {ProductScreenConstants} from '../../utils/config';
+import {SharedElement} from 'react-navigation-shared-element';
 
-const SWIPE_HEIGHT = hp(50);
-const CONTAINER_VIEW_INIT_HEIGHT = hp(85);
-const CONTAINER_VIEW_FINAL_HEIGHT = hp(35);
-const IMAGE_FINAL_HEIGHT = hp(30);
+// const SWIPE_HEIGHT = hp(50);
+// const CONTAINER_VIEW_INIT_HEIGHT = hp(85);
+// const CONTAINER_VIEW_FINAL_HEIGHT = hp(35);
+// const IMAGE_FINAL_HEIGHT = hp(30);
 
 export default function ProductScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const route = useRoute<RouteProp<RootStackParamList>>();
   const [liked, setLiked] = useState(false);
+  const [product, setProduct] = useState<ProductType>(route.params.item);
 
   const sharedValue = useSharedValue(0);
   const position = useSharedValue(0);
@@ -53,35 +63,37 @@ export default function ProductScreen() {
       if (
         sharedValue.value === 0 &&
         e.translationY < 0 &&
-        e.translationY > -SWIPE_HEIGHT
+        e.translationY > -ProductScreenConstants.SWIPE_HEIGHT
       ) {
         position.value = withSpring(e.translationY);
       } else if (
         sharedValue.value === 1 &&
         e.translationY > 0 &&
-        e.translationY < SWIPE_HEIGHT
+        e.translationY < ProductScreenConstants.SWIPE_HEIGHT
       ) {
-        position.value = withSpring(-SWIPE_HEIGHT + e.translationY);
+        position.value = withSpring(
+          -ProductScreenConstants.SWIPE_HEIGHT + e.translationY,
+        );
       }
     })
     .onEnd(e => {
       if (
         sharedValue.value === 0 &&
         // e.translationY < 0 &&
-        e.translationY < -SWIPE_HEIGHT / 2
+        e.translationY < -ProductScreenConstants.SWIPE_HEIGHT / 2
       ) {
-        position.value = withSpring(-SWIPE_HEIGHT);
+        position.value = withSpring(-ProductScreenConstants.SWIPE_HEIGHT);
         sharedValue.value = 1;
       } else if (
         sharedValue.value === 1 &&
         // e.translationY > 0 &&
-        e.translationY > SWIPE_HEIGHT / 2
+        e.translationY > ProductScreenConstants.SWIPE_HEIGHT / 2
       ) {
         position.value = withSpring(0);
         sharedValue.value = 0;
       } else {
         if (sharedValue.value === 1) {
-          position.value = withSpring(-SWIPE_HEIGHT);
+          position.value = withSpring(-ProductScreenConstants.SWIPE_HEIGHT);
         } else {
           position.value = withSpring(0);
         }
@@ -91,8 +103,11 @@ export default function ProductScreen() {
   const animateContainerView = useAnimatedStyle(() => {
     const height = interpolate(
       position.value,
-      [0, -SWIPE_HEIGHT],
-      [CONTAINER_VIEW_INIT_HEIGHT, CONTAINER_VIEW_FINAL_HEIGHT],
+      [0, -ProductScreenConstants.SWIPE_HEIGHT],
+      [
+        ProductScreenConstants.CONTAINER_VIEW_INIT_HEIGHT,
+        ProductScreenConstants.CONTAINER_VIEW_FINAL_HEIGHT,
+      ],
     );
     return {
       height,
@@ -102,20 +117,23 @@ export default function ProductScreen() {
   const animateImageView = useAnimatedStyle(() => {
     const height = interpolate(
       position.value,
-      [0, -SWIPE_HEIGHT],
-      [SWIPE_HEIGHT, IMAGE_FINAL_HEIGHT],
+      [0, -ProductScreenConstants.SWIPE_HEIGHT],
+      [
+        ProductScreenConstants.SWIPE_HEIGHT,
+        ProductScreenConstants.IMAGE_FINAL_HEIGHT,
+      ],
     );
     return {
       height,
     };
   }, []);
 
-  const animateDetailView = useAnimatedStyle(() => {
-    const opacity = interpolate(position.value, [0, -SWIPE_HEIGHT / 2], [1, 0]);
-    return {
-      opacity,
-    };
-  }, []);
+  useEffect(() => {
+    if (route.params && route.params.item) {
+      setProduct(route.params.item);
+    }
+    // console.log('item======', route.params.item);
+  }, [route.params]);
 
   return (
     <Container backgroundColor={colors.secondaryBg}>
@@ -132,16 +150,18 @@ export default function ProductScreen() {
                 {liked ? <HeartFillIcon /> : <HeartOutlineIcon />}
               </Pressable>
             </View>
+            {/* <SharedElement id={product.uid}> */}
             <View>
-              <Animated.Image
-                source={data.mixed[7].image}
-                style={[animateImageView, styles.imageDimension]}
-                resizeMode="contain"
-              />
+              {product && (
+                <Animated.Image
+                  source={product.image}
+                  style={[animateImageView, styles.imageDimension]}
+                  resizeMode="contain"
+                />
+              )}
             </View>
-            <Animated.View style={[styles.detailsContainer, animateDetailView]}>
-              {}
-            </Animated.View>
+            {/* </SharedElement> */}
+            <ProductDetails position={position} />
           </Animated.View>
           <Animated.View>
             <GestureDetector gesture={panGesture}>
@@ -162,6 +182,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: wp(7),
     borderBottomLeftRadius: wp(7),
     overflow: 'hidden',
+    elevation: 1,
     // backgroundColor: colors.secondaryBg,
   },
   parentBg: {
@@ -180,9 +201,10 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 1,
+    paddingHorizontal: 20,
   },
   purchaseContainer: {
-    height: SWIPE_HEIGHT + hp(20),
+    height: ProductScreenConstants.SWIPE_HEIGHT + hp(20),
   },
   iconContainer: {
     padding: hp(2),

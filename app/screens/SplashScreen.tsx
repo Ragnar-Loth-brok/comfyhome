@@ -36,7 +36,7 @@ export default function SplashScreen(): JSX.Element {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const homeNavigation = useCallback(() => {
-    navigation.navigate('Product');
+    navigation.navigate('Home');
   }, [navigation]);
 
   const sharedValue = useSharedValue(0);

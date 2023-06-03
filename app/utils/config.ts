@@ -47,3 +47,17 @@ export const splitArray = (list: any[], size: number) => {
 
   return arr;
 };
+
+const SWIPE_HEIGHT = hp(50);
+const CONTAINER_VIEW_INIT_HEIGHT = hp(85);
+const CONTAINER_VIEW_FINAL_HEIGHT = hp(35);
+const IMAGE_FINAL_HEIGHT = hp(30);
+const DEVICE_FUll_WIDTH = wp(100);
+
+export const ProductScreenConstants = {
+  SWIPE_HEIGHT,
+  CONTAINER_VIEW_FINAL_HEIGHT,
+  CONTAINER_VIEW_INIT_HEIGHT,
+  IMAGE_FINAL_HEIGHT,
+  DEVICE_FUll_WIDTH,
+};
