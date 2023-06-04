@@ -300,7 +300,7 @@ export default function ImageGrid({
         <Animated.View
           layout={Layout}
           entering={ZoomIn.delay(200).springify()}
-          style={styles.typeAContainer}>
+          style={[styles.typeAContainer, imageGridStyles.cardShadow]}>
           <Animated.View ref={aref_1}>
             <Pressable
               style={[
@@ -325,7 +325,7 @@ export default function ImageGrid({
         <Animated.View
           layout={Layout}
           entering={ZoomIn.delay(500).springify()}
-          style={styles.typeBContainer}>
+          style={[styles.typeBContainer, imageGridStyles.cardShadow]}>
           <Animated.View ref={aref_2}>
             <Pressable
               onPress={() => onTap(products[1], 2)}
@@ -349,7 +349,7 @@ export default function ImageGrid({
         <Animated.View
           layout={Layout}
           entering={ZoomIn.delay(700).springify()}
-          style={styles.typeCContainer}>
+          style={[styles.typeCContainer, imageGridStyles.cardShadow]}>
           <Animated.View ref={aref_3}>
             <Pressable
               onPress={() => onTap(products[2], 3)}
@@ -373,7 +373,7 @@ export default function ImageGrid({
         <Animated.View
           layout={Layout}
           entering={ZoomIn.delay(300).springify()}
-          style={styles.typeDContainer}>
+          style={[styles.typeDContainer, imageGridStyles.cardShadow]}>
           <Animated.View ref={aref_4}>
             <Pressable
               onPress={() => onTap(products[3], 4)}

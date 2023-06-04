@@ -26,6 +26,7 @@ import Animated, {
   interpolateColor,
   Layout,
   measure,
+  RotateInDownLeft,
   runOnJS,
   runOnUI,
   useAnimatedRef,
@@ -34,7 +35,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import {hp, wp} from '../../utils/config';
+import {hp, hpp, wp} from '../../utils/config';
 import {
   Gesture,
   GestureDetector,
@@ -42,6 +43,7 @@ import {
 } from 'react-native-gesture-handler';
 import colors from '../../utils/colors';
 import ProductDetails from '../../components/product/ProductDetails';
+import ChevronIcon from '../../assets/icons/chevron.svg';
 import {ProductScreenConstants} from '../../utils/config';
 
 export default function ProductScreen() {
@@ -362,6 +364,30 @@ export default function ProductScreen() {
             <GestureDetector gesture={panGesture}>
               <Animated.View style={[styles.purchaseContainer]}>
                 {/* <Text>Hey babu</Text> */}
+                <Animated.View
+                  // layout={Layout}
+                  // entering={RotateInDownLeft}
+                  style={{
+                    width: hpp(54),
+                    height: hpp(54),
+                    alignSelf: 'center',
+                    backgroundColor: colors.secondaryBg,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: hpp(27),
+                    transform: [{translateY: -hpp(27)}],
+                    shadowColor: colors.textSecondary,
+                    shadowOffset: {
+                      width: 0,
+                      height: 2,
+                    },
+                    shadowOpacity: 0.23,
+                    shadowRadius: 2.62,
+
+                    elevation: 4,
+                  }}>
+                  <ChevronIcon style={{transform: [{translateY: hpp(10)}]}} />
+                </Animated.View>
               </Animated.View>
             </GestureDetector>
           </Animated.View>
