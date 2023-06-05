@@ -6,5 +6,5 @@ export const SplashScreenTexts = {
 export const HomeScreenTexts = {
   headingA: 'Your home',
   headingB: 'Your way',
-  categories: ['New', 'Lamps', 'Chairs', 'Beds'],
+  categories: ['Best Offers', 'Lamps', 'Chairs', 'Beds'],
 };

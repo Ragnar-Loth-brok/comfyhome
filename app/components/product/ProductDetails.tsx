@@ -7,17 +7,15 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated';
 
-import Cart from '../../assets/icons/cart.svg';
 import colors from '../../utils/colors';
-import {fp, hp, hpp, ProductScreenConstants, wp, wpp} from '../../utils/config';
+import {fp, hp, hpp, ProductScreenConstants, wp} from '../../utils/config';
 import {FONT_TYPES} from '../../utils/style';
-import ButtonUI from '../common/ButtonUI';
 
 type Props = {
   position: SharedValue<number>;
 };
 
-const name = 'Hey brother hello';
+const name = 'Baron Lamp';
 
 export default function ProductDetails({position}: Props) {
   const animateDetailView = useAnimatedStyle(() => {
@@ -45,14 +43,30 @@ export default function ProductDetails({position}: Props) {
               .join(' ')}
           </Text>
         </View>
-        <Text style={styles.dimensionTitle}>Size</Text>
-        <Text style={styles.dimensionText}>160 x 75 x 55.5 cm</Text>
+        <Text style={styles.productType}>Chair cover, Orresta grey</Text>
+        <View style={[styles.titleContainer, {alignItems: 'flex-end'}]}>
+          <Text style={styles.priceTitle}>Rs.</Text>
+          <Text style={styles.priceText}>800</Text>
+        </View>
       </View>
       <View style={styles.buttonsContainer}>
-        <ButtonUI onPress={() => {}} title="Add to Cart" />
+        {/* <ButtonUI onPress={() => {}} title="Add to Cart" />
         <View style={styles.cartContainer}>
           <Cart />
-        </View>
+        </View> */}
+        <Text
+          numberOfLines={3}
+          style={{
+            marginLeft: wp(6),
+            lineHeight: fp(24),
+            fontSize: fp(14),
+            color: colors.titlePrimary,
+            fontFamily: FONT_TYPES.W_400,
+          }}>
+          Dining chairs in the BERGMUND series offer cushiony comfort and many
+          cover options, like this one in a pale shade of grey. After engaging
+          meals and after-dinner chit-chat, it’s good to know it’s washable.
+        </Text>
       </View>
     </Animated.View>
   );
@@ -66,8 +80,9 @@ const styles = StyleSheet.create({
   },
   subContainer: {
     paddingHorizontal: wp(6),
-    borderLeftWidth: 1.5,
+    borderLeftWidth: 2,
     marginVertical: hp(3),
+    borderColor: colors.border,
   },
   titleContainer: {
     flexDirection: 'row',
@@ -76,23 +91,31 @@ const styles = StyleSheet.create({
   title: {
     fontSize: fp(28),
     fontFamily: FONT_TYPES.W_700,
-    color: colors.titlePrimary,
+    color: colors.title,
+    letterSpacing: 1,
   },
   subTitle: {
     fontSize: fp(26),
     fontFamily: FONT_TYPES.W_400,
-    color: colors.textSecondary,
+    color: colors.titleSecondary,
   },
-  dimensionText: {
-    fontSize: fp(19),
-    fontFamily: FONT_TYPES.W_400,
-    color: colors.textSecondary,
-  },
-  dimensionTitle: {
+  priceTitle: {
     fontSize: fp(16),
     fontFamily: FONT_TYPES.W_400,
-    color: colors.headingColor,
-    marginVertical: hpp(8),
+    color: colors.titleSecondary,
+  },
+  priceText: {
+    fontSize: fp(26),
+    fontFamily: FONT_TYPES.W_700,
+    color: colors.primary,
+    transform: [{translateY: fp(3)}],
+    letterSpacing: 1,
+  },
+  productType: {
+    fontSize: fp(16),
+    fontFamily: FONT_TYPES.W_400,
+    color: colors.titlePrimary,
+    marginVertical: hpp(9),
   },
   buttonsContainer: {
     flexDirection: 'row',
@@ -100,7 +123,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   cartContainer: {
-    backgroundColor: colors.appBgPrimary,
+    backgroundColor: colors.bg,
     borderRadius: hp(5),
     width: hpp(42),
     height: hpp(42),

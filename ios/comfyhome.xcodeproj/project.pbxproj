@@ -9,12 +9,11 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* comfyhomeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* comfyhomeTests.m */; };
 		03115CE01D9E4B418A3B6E09 /* Ubuntu-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 603A7E07A0B6497AAF04AE14 /* Ubuntu-Italic.ttf */; };
-		0C80B921A6F3F58F76C31292 /* libPods-comfyhome.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-comfyhome.a */; };
 		0E7AC2D64D784B70AB7EDBF6 /* Ubuntu-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C89B7C16378A49139BE47990 /* Ubuntu-LightItalic.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		7699B88040F8A987B510C191 /* libPods-comfyhome-comfyhomeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-comfyhome-comfyhomeTests.a */; };
+		2165C7F6A85C155E50A31D9A /* libPods-comfyhome.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF41880DD880EFED44D0D09 /* libPods-comfyhome.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A6D93DA368054FA889197F8F /* Ubuntu-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAAC16C3614C421EA88126A8 /* Ubuntu-Bold.ttf */; };
 		B1AA64C21FB140E0B5173AAA /* Ubuntu-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8CE5C24CB074CBA9B5ADF67 /* Ubuntu-MediumItalic.ttf */; };
@@ -22,6 +21,7 @@
 		D44D52F2FB4B414AA81B47D0 /* Ubuntu-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50077D0CED444F56A4050E6F /* Ubuntu-BoldItalic.ttf */; };
 		D83418499C164457B8CBA692 /* Ubuntu-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC1588036D0E476483DB1438 /* Ubuntu-Medium.ttf */; };
 		E71579B889F4463CA2D5E49D /* Ubuntu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63604C512C5A49D08FBF5CFA /* Ubuntu-Regular.ttf */; };
+		F6DDC2B34D5B21381A630648 /* libPods-comfyhome-comfyhomeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8168A73AB81FFC9551BD10ED /* libPods-comfyhome-comfyhomeTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,16 +45,16 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = comfyhome/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = comfyhome/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = comfyhome/main.m; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-comfyhome-comfyhomeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-comfyhome-comfyhomeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B4392A12AC88292D35C810B /* Pods-comfyhome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comfyhome.debug.xcconfig"; path = "Target Support Files/Pods-comfyhome/Pods-comfyhome.debug.xcconfig"; sourceTree = "<group>"; };
+		4B7BB8706D77727DA33530BA /* Pods-comfyhome-comfyhomeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comfyhome-comfyhomeTests.debug.xcconfig"; path = "Target Support Files/Pods-comfyhome-comfyhomeTests/Pods-comfyhome-comfyhomeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		50077D0CED444F56A4050E6F /* Ubuntu-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-BoldItalic.ttf"; path = "../app/assets/fonts/Ubuntu-BoldItalic.ttf"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-comfyhome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comfyhome.release.xcconfig"; path = "Target Support Files/Pods-comfyhome/Pods-comfyhome.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-comfyhome-comfyhomeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comfyhome-comfyhomeTests.debug.xcconfig"; path = "Target Support Files/Pods-comfyhome-comfyhomeTests/Pods-comfyhome-comfyhomeTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-comfyhome.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-comfyhome.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		603A7E07A0B6497AAF04AE14 /* Ubuntu-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Italic.ttf"; path = "../app/assets/fonts/Ubuntu-Italic.ttf"; sourceTree = "<group>"; };
 		63604C512C5A49D08FBF5CFA /* Ubuntu-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Regular.ttf"; path = "../app/assets/fonts/Ubuntu-Regular.ttf"; sourceTree = "<group>"; };
+		8168A73AB81FFC9551BD10ED /* libPods-comfyhome-comfyhomeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-comfyhome-comfyhomeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = comfyhome/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-comfyhome-comfyhomeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comfyhome-comfyhomeTests.release.xcconfig"; path = "Target Support Files/Pods-comfyhome-comfyhomeTests/Pods-comfyhome-comfyhomeTests.release.xcconfig"; sourceTree = "<group>"; };
+		881BF3FFEFDA65EEAF4C949B /* Pods-comfyhome-comfyhomeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comfyhome-comfyhomeTests.release.xcconfig"; path = "Target Support Files/Pods-comfyhome-comfyhomeTests/Pods-comfyhome-comfyhomeTests.release.xcconfig"; sourceTree = "<group>"; };
+		A9D600942452C11A08F38CC2 /* Pods-comfyhome.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comfyhome.release.xcconfig"; path = "Target Support Files/Pods-comfyhome/Pods-comfyhome.release.xcconfig"; sourceTree = "<group>"; };
+		BAD22FEE964A459C42DB48ED /* Pods-comfyhome.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comfyhome.debug.xcconfig"; path = "Target Support Files/Pods-comfyhome/Pods-comfyhome.debug.xcconfig"; sourceTree = "<group>"; };
+		BAF41880DD880EFED44D0D09 /* libPods-comfyhome.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-comfyhome.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C89B7C16378A49139BE47990 /* Ubuntu-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-LightItalic.ttf"; path = "../app/assets/fonts/Ubuntu-LightItalic.ttf"; sourceTree = "<group>"; };
 		C8CE5C24CB074CBA9B5ADF67 /* Ubuntu-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-MediumItalic.ttf"; path = "../app/assets/fonts/Ubuntu-MediumItalic.ttf"; sourceTree = "<group>"; };
 		DAAC16C3614C421EA88126A8 /* Ubuntu-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Ubuntu-Bold.ttf"; path = "../app/assets/fonts/Ubuntu-Bold.ttf"; sourceTree = "<group>"; };
@@ -67,7 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-comfyhome-comfyhomeTests.a in Frameworks */,
+				F6DDC2B34D5B21381A630648 /* libPods-comfyhome-comfyhomeTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,7 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-comfyhome.a in Frameworks */,
+				2165C7F6A85C155E50A31D9A /* libPods-comfyhome.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,8 +116,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-comfyhome.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-comfyhome-comfyhomeTests.a */,
+				BAF41880DD880EFED44D0D09 /* libPods-comfyhome.a */,
+				8168A73AB81FFC9551BD10ED /* libPods-comfyhome-comfyhomeTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -157,10 +157,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-comfyhome.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-comfyhome.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-comfyhome-comfyhomeTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-comfyhome-comfyhomeTests.release.xcconfig */,
+				BAD22FEE964A459C42DB48ED /* Pods-comfyhome.debug.xcconfig */,
+				A9D600942452C11A08F38CC2 /* Pods-comfyhome.release.xcconfig */,
+				4B7BB8706D77727DA33530BA /* Pods-comfyhome-comfyhomeTests.debug.xcconfig */,
+				881BF3FFEFDA65EEAF4C949B /* Pods-comfyhome-comfyhomeTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -187,12 +187,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "comfyhomeTests" */;
 			buildPhases = (
-				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
+				CB6013DBD3A28F0423F3050C /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
+				10DEDE00613B5AC1274ADB0C /* [CP] Embed Pods Frameworks */,
+				D6D2822235DE2450E391098D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -208,14 +208,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "comfyhome" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				ABA9EEBACA2A79DFB238F147 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				4312BCE9889E0F580574657B /* [CP] Embed Pods Frameworks */,
+				655AF900F78C1CCC9F1F0B9D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -306,7 +306,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+		10DEDE00613B5AC1274ADB0C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-comfyhome-comfyhomeTests/Pods-comfyhome-comfyhomeTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-comfyhome-comfyhomeTests/Pods-comfyhome-comfyhomeTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-comfyhome-comfyhomeTests/Pods-comfyhome-comfyhomeTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4312BCE9889E0F580574657B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -323,29 +340,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-comfyhome/Pods-comfyhome-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
+		655AF900F78C1CCC9F1F0B9D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-comfyhome/Pods-comfyhome-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-comfyhome-comfyhomeTests-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-comfyhome/Pods-comfyhome-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-comfyhome/Pods-comfyhome-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		ABA9EEBACA2A79DFB238F147 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -367,41 +379,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
+		CB6013DBD3A28F0423F3050C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-comfyhome-comfyhomeTests/Pods-comfyhome-comfyhomeTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-comfyhome-comfyhomeTests/Pods-comfyhome-comfyhomeTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-comfyhome-comfyhomeTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-comfyhome-comfyhomeTests/Pods-comfyhome-comfyhomeTests-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-comfyhome/Pods-comfyhome-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-comfyhome/Pods-comfyhome-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-comfyhome/Pods-comfyhome-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
+		D6D2822235DE2450E391098D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -470,7 +470,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-comfyhome-comfyhomeTests.debug.xcconfig */;
+			baseConfigurationReference = 4B7BB8706D77727DA33530BA /* Pods-comfyhome-comfyhomeTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -497,7 +497,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-comfyhome-comfyhomeTests.release.xcconfig */;
+			baseConfigurationReference = 881BF3FFEFDA65EEAF4C949B /* Pods-comfyhome-comfyhomeTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -521,7 +521,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-comfyhome.debug.xcconfig */;
+			baseConfigurationReference = BAD22FEE964A459C42DB48ED /* Pods-comfyhome.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -552,7 +552,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-comfyhome.release.xcconfig */;
+			baseConfigurationReference = A9D600942452C11A08F38CC2 /* Pods-comfyhome.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

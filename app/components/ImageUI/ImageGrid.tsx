@@ -17,6 +17,7 @@ import Animated, {
   withTiming,
   ZoomIn,
 } from 'react-native-reanimated';
+import {Shadow} from 'react-native-shadow-2';
 import colors from '../../utils/colors';
 import {hp, ProductScreenConstants, wp, wpp} from '../../utils/config';
 import {imageGridStyles} from '../../utils/defaultStyles';
@@ -224,7 +225,7 @@ export default function ImageGrid({
     const backgroundColor = interpolateColor(
       animateTransition.value,
       [0, 1],
-      [colors.imageCardBg, colors.secondaryBg],
+      [colors.cardBg, colors.bg],
     );
 
     return {
@@ -420,7 +421,7 @@ const styles = StyleSheet.create({
     marginHorizontal: wpp(20),
   },
   imageContainer: {
-    backgroundColor: colors.imageCardBg,
+    backgroundColor: colors.cardBg,
     borderRadius: wp(5),
     overflow: 'hidden',
   },
@@ -446,11 +447,11 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   modalContainer: {
-    backgroundColor: colors.appBgPrimary,
+    backgroundColor: colors.bg,
     flex: 1,
   },
   modalSubcontainer: {
-    backgroundColor: colors.imageCardBg,
+    backgroundColor: colors.cardBg,
     position: 'absolute',
     borderRadius: ProductScreenConstants.BORDER_RADIUS_INIT,
   },

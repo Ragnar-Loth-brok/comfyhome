@@ -15,7 +15,7 @@ type Props = {
 };
 
 export default function CircleUI({
-  borderColor = colors.borderPrimaryColor,
+  borderColor = colors.border,
 }: Props): JSX.Element {
   const scale = useSharedValue<number>(1);
   const animateStyle = useAnimatedStyle(() => {

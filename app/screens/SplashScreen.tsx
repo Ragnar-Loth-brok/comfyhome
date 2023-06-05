@@ -6,6 +6,7 @@ import {
   GestureHandlerRootView,
 } from 'react-native-gesture-handler';
 import Animated, {
+  FlipInEasyY,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
@@ -89,10 +90,6 @@ export default function SplashScreen(): JSX.Element {
       productPosition.value,
       [SWIPE_LIMIT, -SWIPE_LIMIT],
       [LAMP_X, 0],
-      {
-        // extrapolateLeft: Extrapolate.CLAMP,
-        // extrapolateRight: Extrapolate.CLAMP,
-      },
     );
 
     return {
@@ -131,7 +128,7 @@ export default function SplashScreen(): JSX.Element {
   }, []);
 
   return (
-    <Container backgroundColor={colors.appBg}>
+    <Container>
       <GestureHandlerRootView>
         <StatusBar hidden={true} />
         <View style={styles.subContainer}>
@@ -145,7 +142,7 @@ export default function SplashScreen(): JSX.Element {
           <CircleUI />
         </View>
         <GestureDetector gesture={panGesture}>
-          <View style={styles.box}>
+          <Animated.View entering={FlipInEasyY.springify()} style={styles.box}>
             <Animated.View
               style={[styles.centerCircle, centerCircleAnimation]}
             />
@@ -168,7 +165,7 @@ export default function SplashScreen(): JSX.Element {
                 style={styles.lampImage}
               />
             </Animated.View>
-          </View>
+          </Animated.View>
         </GestureDetector>
       </GestureHandlerRootView>
       <View style={styles.buttonContainer}>
@@ -185,7 +182,7 @@ const styles = StyleSheet.create({
   },
   divider: {
     width: StyleSheet.hairlineWidth,
-    backgroundColor: colors.textPrimary,
+    backgroundColor: colors.border,
     marginHorizontal: 15,
     borderRadius: 5,
   },
@@ -196,12 +193,12 @@ const styles = StyleSheet.create({
     fontSize: fp(16),
     fontFamily: FONT_TYPES.W_500,
     transform: [{translateY: wpp(90)}],
-    color: colors.headingColor,
+    color: colors.titlePrimary,
   },
   title: {
     fontSize: fp(32),
     fontFamily: FONT_TYPES.W_500,
-    color: colors.textSecondary,
+    color: colors.title,
   },
   cicleUIContainer: {
     position: 'absolute',
@@ -210,11 +207,20 @@ const styles = StyleSheet.create({
   },
   box: {
     height: hp(80),
+    shadowColor: colors.shadowPrimary,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+
+    elevation: 6,
   },
   centerCircle: {
     width: hpp(500),
     height: hpp(500),
-    backgroundColor: colors.circleBg,
+    backgroundColor: colors.roundTypeTwo,
     borderRadius: hpp(250),
   },
   chairImageContainer: {

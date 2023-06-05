@@ -30,9 +30,10 @@ export const imageGridStyles = StyleSheet.create({
   title: {
     fontSize: fp(16),
     fontFamily: FONT_TYPES.W_400,
-    color: colors.textSecondary,
+    color: colors.title,
     marginVertical: 5,
     marginLeft: 5,
+    letterSpacing: 1,
   },
   imageTypeADimension: {
     width: wp(35),

@@ -15,9 +15,7 @@ import {HomeScreenTexts} from '../../utils/string';
 import defaultStyles from '../../utils/defaultStyles';
 import ProductHorizontalScrollUI from '../../components/ImageUI/ProductHorizontalScrollUI';
 import Animated, {
-  interpolate,
   useAnimatedScrollHandler,
-  useAnimatedStyle,
   useSharedValue,
   withSpring,
   withTiming,
@@ -53,13 +51,6 @@ export default function HomeScreen(): JSX.Element {
     scrollY.value = withSpring(event.contentOffset.y, {damping: 100});
     contentSize.value = withSpring(event.contentSize.height - DEVICE_HEIGHT);
   });
-
-  const containerAnimation = useAnimatedStyle(() => {
-    const opacity = interpolate(focused.value, [0, 1], [0.8, 1]);
-    return {
-      opacity,
-    };
-  }, []);
 
   useEffect(() => {
     if (isFocused) {
@@ -139,14 +130,14 @@ const styles = StyleSheet.create({
   headingContainer: {
     marginVertical: hp(4),
     borderLeftWidth: 2,
-    borderColor: colors.headingColor,
+    borderColor: colors.roundTypeOne,
     paddingHorizontal: 20,
   },
   dot: {
     width: 5,
     height: 5,
     borderRadius: 2.5,
-    backgroundColor: colors.headingColor,
+    backgroundColor: colors.primary,
     // marginRight: 2,
   },
   menuContainer: {

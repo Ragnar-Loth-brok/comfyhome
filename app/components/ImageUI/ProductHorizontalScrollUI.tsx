@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     width: 3,
     height: 3,
     borderRadius: 2.5,
-    backgroundColor: colors.headingColor,
+    backgroundColor: colors.primary,
     marginVertical: 4.6,
   },
   dotContainer: {
@@ -120,6 +120,6 @@ const styles = StyleSheet.create({
   title: {
     transform: [{rotateZ: '270deg'}],
     fontSize: fp(12),
-    fontFamily: FONT_TYPES.W_400,
+    fontFamily: FONT_TYPES.W_500,
   },
 });

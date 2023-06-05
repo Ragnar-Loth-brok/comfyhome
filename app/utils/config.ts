@@ -52,6 +52,7 @@ const SWIPE_HEIGHT = hp(50);
 const CONTAINER_VIEW_INIT_HEIGHT = hp(85);
 const CONTAINER_VIEW_FINAL_HEIGHT = hp(35);
 const IMAGE_FINAL_HEIGHT = hp(30);
+const IMAGE_SCALE_HEIGHT = hp(80);
 const DEVICE_FUll_WIDTH = wp(100);
 
 const BORDER_RADIUS_INIT = wp(5);
@@ -67,4 +68,5 @@ export const ProductScreenConstants = {
   BORDER_RADIUS_FINAL,
   BORDER_RADIUS_INIT,
   PADDING_TOP,
+  IMAGE_SCALE_HEIGHT
 };

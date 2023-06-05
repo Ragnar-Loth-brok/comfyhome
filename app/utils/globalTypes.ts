@@ -8,8 +8,10 @@ type ProductType = {
   id: number;
   name: string;
   image: any;
-  desc?: string;
+  price?: string | number;
   category?: string;
+  short_desc?: string;
+  desc?: string;
   uid: string;
 };
 

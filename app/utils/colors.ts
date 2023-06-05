@@ -11,34 +11,16 @@ const def_colors = {
   transparent_white_secondary: 'rgba(255, 255, 255, 0.8)',
 };
 
-// const
-
-const secondary_colors = {
-  primary: '#1C1C25',
-  cardBg: '#EFEFEF',
-  bg: '#FFFEFE',
-  roundTypeOne: '#DCE0E5',
-  roundTypeTwo: '#DFE5DE',
-  // #81DAEC #CDE9D4 #FDC984 #F78160 #1C1C25
-};
-
 export default {
-  // appBg: '#FBFDFD',
-  appBg: '#F2F1E8',
-  appBgPrimary: '#FDFBF9',
-  textPrimary: def_colors.blackPrimary,
-  textSecondary: def_colors.blackSecondary,
-  headingColor: '#C58456',
-  borderPrimaryColor: '#E6D9BF',
-  borderSecondaryColor: '#C6D4CF',
-  circleBg: '#E8E4D9',
-  buttonBG: '#5C8178',
-  imageCardBg: '#F2F0E9',
-  secondaryBg: '#EAE4D8',
-  titlePrimary: def_colors.blackBeta,
   primary: '#1C1C25',
+  title: '#1C1C25',
   cardBg: '#EFEFEF',
+  cardBgAlt: '#EFEFEFFB',
   bg: '#FFFEFE',
   roundTypeOne: '#DCE0E5',
   roundTypeTwo: '#DFE5DE',
+  shadowPrimary: '#1C1C25',
+  titlePrimary: '#71797E',
+  border: '#B2BEB5',
+  titleSecondary: '#36454F',
 };

@@ -26,7 +26,6 @@ import Animated, {
   interpolateColor,
   Layout,
   measure,
-  RotateInDownLeft,
   runOnJS,
   runOnUI,
   useAnimatedRef,
@@ -35,16 +34,25 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import {hp, hpp, wp} from '../../utils/config';
+import {BlurView} from '@react-native-community/blur';
 import {
   Gesture,
   GestureDetector,
   GestureHandlerRootView,
 } from 'react-native-gesture-handler';
-import colors from '../../utils/colors';
-import ProductDetails from '../../components/product/ProductDetails';
+
 import ChevronIcon from '../../assets/icons/chevron.svg';
+import ZoomIcon from '../../assets/icons/plus.svg';
+
+import colors from '../../utils/colors';
+import {fp, hp, hpp, wp} from '../../utils/config';
+import ProductDetails from '../../components/product/ProductDetails';
 import {ProductScreenConstants} from '../../utils/config';
+import {imageGridStyles} from '../../utils/defaultStyles';
+import {FONT_TYPES} from '../../utils/style';
+
+const CHEVRON_INIT_Y = hpp(12);
+// const CHEVRON_CONTAIN_Y = hpp(84);
 
 export default function ProductScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -86,7 +94,26 @@ export default function ProductScreen() {
 
   const sharedValue = useSharedValue(0);
   const position = useSharedValue(0);
+  const imagePositionX = useSharedValue(0);
+  const imagePositionY = useSharedValue(0);
   const animateTransition = useSharedValue(0);
+
+  const scale = useSharedValue(1);
+  const savedScale = useSharedValue(1);
+
+  const pinchGesture = Gesture.Pinch()
+    .onUpdate(e => {
+      if (sharedValue.value === 0) {
+        scale.value = savedScale.value * e.scale;
+      }
+    })
+    .onEnd(() => {
+      savedScale.value = scale.value;
+    });
+
+  const scaleStyle = useAnimatedStyle(() => ({
+    transform: [{scale: scale.value}],
+  }));
 
   const goBack = useCallback(() => {
     navigation.goBack();
@@ -98,6 +125,11 @@ export default function ProductScreen() {
   }, []);
 
   const panGesture = Gesture.Pan()
+    .onBegin(e => {
+      if (sharedValue.value === -1) {
+        sharedValue.value = withSpring(0);
+      }
+    })
     .onUpdate(e => {
       if (
         sharedValue.value === 0 &&
@@ -139,6 +171,20 @@ export default function ProductScreen() {
       }
     });
 
+  const imagePanGesture = Gesture.Pan()
+    .onUpdate(e => {
+      if (sharedValue.value === -1) {
+        imagePositionX.value = e.translationX;
+        imagePositionY.value = e.translationY;
+      }
+    })
+    .onEnd(e => {
+      if (sharedValue.value === -1) {
+        imagePositionX.value = withSpring(0);
+        imagePositionY.value = withSpring(0);
+      }
+    });
+
   const animateContainerView = useAnimatedStyle(() => {
     const height = interpolate(
       position.value,
@@ -164,6 +210,14 @@ export default function ProductScreen() {
     );
     return {
       height,
+    };
+  }, []);
+  const animateScaleImagePanGesture = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {translateX: imagePositionX.value},
+        {translateY: imagePositionY.value},
+      ],
     };
   }, []);
 
@@ -194,13 +248,6 @@ export default function ProductScreen() {
       [0, tappedDimensions.value.pageX],
     );
 
-    // const paddingTop = interpolate(
-    //   animateTransition.value,
-    //   [0, 0.5],
-    //   [0, PADDING_TOP + statusBarHeight.value],
-    //   {extrapolateLeft: Extrapolate.CLAMP, extrapolateRight: Extrapolate.CLAMP},
-    // );
-
     const border_radius = interpolate(
       animateTransition.value,
       [0, 1],
@@ -213,7 +260,7 @@ export default function ProductScreen() {
     const backgroundColor = interpolateColor(
       animateTransition.value,
       [0, 1],
-      [colors.secondaryBg, colors.imageCardBg],
+      [colors.bg, colors.cardBg],
     );
 
     return {
@@ -279,6 +326,54 @@ export default function ProductScreen() {
     };
   });
 
+  const scaleImageStyles = useAnimatedStyle(() => {
+    const height = interpolate(
+      sharedValue.value,
+      [0, -1],
+      [
+        ProductScreenConstants.SWIPE_HEIGHT,
+        ProductScreenConstants.IMAGE_SCALE_HEIGHT,
+      ],
+      {
+        extrapolateLeft: Extrapolate.CLAMP,
+        // extrapolateRight: Extrapolate.CLAMP,
+      },
+    );
+
+    return {
+      height,
+    };
+  });
+
+  const chevronAnimation = useAnimatedStyle(() => {
+    const degree = interpolate(sharedValue.value, [0, 1], [-180, 0], {
+      extrapolateLeft: Extrapolate.CLAMP,
+      extrapolateRight: Extrapolate.CLAMP,
+    });
+
+    const translateY = interpolate(
+      sharedValue.value,
+      [0, 1],
+      [0, CHEVRON_INIT_Y],
+      {
+        extrapolateLeft: Extrapolate.CLAMP,
+        extrapolateRight: Extrapolate.CLAMP,
+      },
+    );
+
+    return {
+      transform: [{rotateZ: withSpring(`${degree}deg`)}, {translateY}],
+    };
+  });
+
+  const scaleIconAnimation = useAnimatedStyle(() => {
+    const degree = interpolate(sharedValue.value, [0, -1], [0, 45]);
+
+    return {
+      transform: [{rotateZ: withSpring(`${degree}deg`)}],
+    };
+  });
+
   const getDimensions = () => {
     'worklet';
     const dimensions = measure(aref);
@@ -299,6 +394,14 @@ export default function ProductScreen() {
     runOnUI(getDimensions)();
   }, []);
 
+  const onScalePress = useCallback(() => {
+    if (sharedValue.value === -1) {
+      sharedValue.value = withSpring(0);
+    } else {
+      sharedValue.value = withSpring(-1);
+    }
+  }, []);
+
   useEffect(() => {
     if (route.params && route.params.item) {
       setProduct(route.params.item);
@@ -313,8 +416,8 @@ export default function ProductScreen() {
 
   useEffect(() => {
     if (visibleModal) {
-      animateTransition.value = withTiming(1, {duration: 100});
-      setTimeout(goBack, 300);
+      animateTransition.value = withTiming(1, {duration: 20});
+      setTimeout(goBack, 200);
     }
     return () => {
       animateTransition.value = 0;
@@ -333,8 +436,10 @@ export default function ProductScreen() {
     [hardwareBackPress, navigation],
   );
 
+  const composed = Gesture.Race(imagePanGesture, pinchGesture);
+
   return (
-    <Container backgroundColor={colors.secondaryBg}>
+    <Container backgroundColor={colors.bg}>
       <StatusBar animated barStyle="dark-content" hidden={false} />
       <GestureHandlerRootView>
         <View style={styles.parentBg}>
@@ -345,50 +450,83 @@ export default function ProductScreen() {
               <Pressable onPress={onTap} style={styles.iconContainer}>
                 <BackIcon />
               </Pressable>
-              <Text>My title</Text>
+              <Text
+                style={{
+                  fontSize: fp(18),
+                  fontFamily: FONT_TYPES.W_500,
+                  color: colors.primary,
+                  letterSpacing: 1,
+                }}>
+                Lamps
+              </Text>
               <Pressable onPress={toggleLike} style={styles.iconContainer}>
                 {liked ? <HeartFillIcon /> : <HeartOutlineIcon />}
               </Pressable>
             </View>
             {product && (
-              <Animated.Image
-                ref={imageRef}
-                source={product.image}
-                style={[animateImageView, styles.imageDimension]}
-                resizeMode="contain"
-              />
+              <>
+                <GestureDetector gesture={composed}>
+                  <>
+                    <Animated.Image
+                      ref={imageRef}
+                      source={product.image}
+                      style={[
+                        animateScaleImagePanGesture,
+                        animateImageView,
+                        styles.imageDimension,
+                        scaleStyle,
+                        scaleImageStyles,
+                      ]}
+                      resizeMode="contain"
+                    />
+                  </>
+                </GestureDetector>
+                <Pressable
+                  onPress={onScalePress}
+                  style={{
+                    position: 'absolute',
+                    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                    width: hpp(50),
+                    height: hpp(50),
+                    alignSelf: 'center',
+                    top: hp(25),
+                    zIndex: 10,
+                    borderRadius: hpp(5),
+                    overflow: 'hidden',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    right: wp(30),
+                  }}>
+                  <BlurView
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      bottom: 0,
+                      right: 0,
+                    }}
+                    blurType="light"
+                    blurAmount={7}
+                    reducedTransparencyFallbackColor="white"
+                  />
+                  <Animated.View style={scaleIconAnimation}>
+                    <ZoomIcon style={{transform: [{translateY: hpp(15)}]}} />
+                  </Animated.View>
+                </Pressable>
+              </>
             )}
             <ProductDetails position={position} />
           </Animated.View>
           <Animated.View>
             <GestureDetector gesture={panGesture}>
               <Animated.View style={[styles.purchaseContainer]}>
-                {/* <Text>Hey babu</Text> */}
-                <Animated.View
-                  // layout={Layout}
-                  // entering={RotateInDownLeft}
-                  style={{
-                    width: hpp(54),
-                    height: hpp(54),
-                    alignSelf: 'center',
-                    backgroundColor: colors.secondaryBg,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: hpp(27),
-                    transform: [{translateY: -hpp(27)}],
-                    shadowColor: colors.textSecondary,
-                    shadowOffset: {
-                      width: 0,
-                      height: 2,
-                    },
-                    shadowOpacity: 0.23,
-                    shadowRadius: 2.62,
-
-                    elevation: 4,
-                  }}>
-                  <ChevronIcon style={{transform: [{translateY: hpp(10)}]}} />
+                <Animated.View style={[styles.chevronContainer]}>
+                  <Animated.View style={chevronAnimation}>
+                    <ChevronIcon />
+                  </Animated.View>
                 </Animated.View>
               </Animated.View>
+              {/* {other compos} */}
             </GestureDetector>
           </Animated.View>
         </View>
@@ -412,15 +550,23 @@ export default function ProductScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.secondaryBg,
+    backgroundColor: colors.bg,
     borderBottomRightRadius: wp(7),
     borderBottomLeftRadius: wp(7),
     overflow: 'hidden',
-    elevation: 1,
     transform: [{perspective: 300}],
+    shadowColor: colors.bg,
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.44,
+    shadowRadius: 10.32,
+
+    elevation: 16,
   },
   parentBg: {
-    backgroundColor: colors.appBgPrimary,
+    backgroundColor: colors.primary,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -445,12 +591,31 @@ const styles = StyleSheet.create({
   //   padding: hp(2),
   // },
   modalContainer: {
-    backgroundColor: colors.appBgPrimary,
+    backgroundColor: colors.bg,
     flex: 1,
   },
   modalSubcontainer: {
-    backgroundColor: colors.imageCardBg,
+    backgroundColor: colors.bg,
     position: 'absolute',
     borderRadius: wp(5),
+    ...imageGridStyles.cardShadow,
+  },
+  chevronContainer: {
+    width: hpp(54),
+    height: hpp(54),
+    alignSelf: 'center',
+    backgroundColor: colors.bg,
+    transform: [{translateY: -hpp(30)}],
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: hpp(27),
+    shadowColor: colors.bg,
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.44,
+    shadowRadius: 10.32,
+    elevation: 16,
   },
 });
