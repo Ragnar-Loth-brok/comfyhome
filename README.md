@@ -1,7 +1,17 @@
 # Comfyhome - React Native
-Demo video link: [![App Demo](screenshots/ss3.png){:width="200px"}](https://dl.dropboxusercontent.com/s/cq9x50qinnhbgqx/comfyhomedemo.mp4)
 
 The Comfyhome App(Furniture) is a visually stunning mobile application developed using React Native. With its intuitive user interface, captivating animations, and seamless gestures, it provides a delightful shopping experience for users looking to explore and purchase furniture items.
+
+
+## Demo video:
+
+- Tap on image
+
+<a href="https://dl.dropboxusercontent.com/s/cq9x50qinnhbgqx/comfyhomedemo.mp4">
+  <img src="screenshots/ss3.png" alt="Image" width="150" height="300">
+</a>
+
+- Or visit link: https://dl.dropboxusercontent.com/s/cq9x50qinnhbgqx/comfyhomedemo.mp4 
 
 ## Key Features
 
@@ -25,33 +35,51 @@ The Comfyhome App(Furniture) is a visually stunning mobile application developed
 
 ## Screenshots
 
-![Splash Screen](screenshots/ss1.png)
-![Home Screen](screenshots/ss3.png)
-![Product Detail Screen](screenshots/ss4.png)
-![Product Details Screen](screenshots/ss5.png)
-![Scale/Move product on gesture](screenshots/ss6.png)
+<div style={{flex-direction: 'row'}} >
+  <img src="screenshots/ss1.png" alt="Splash Screen" width="200" height="400">
+  <img src="screenshots/ss3.png" alt="Home Screen" width="200" height="400">
+  <img src="screenshots/ss4.png" alt="Product Detail Screen" width="200" height="400">
+  <img src="screenshots/ss6.png" alt="Scale/Move product on gesture" width="200" height="400">
+  <img src="screenshots/ss5.png" alt="Product Details Screen" width="200" height="400">
+</div
 
+  
+  
 ## Future Enhancements
 
 - Integration with a backend system to fetch real-time product data and enable features like user authentication, cart persistence, and order processing.
+  
+- Integration of admin panel to add/remove/update product.
 
-- Incorporation of additional gestures, such as swipe gestures for navigating between screens or categories.
+- Incorporation of additional gestures and animations according to screens.
 
 - Integration with a payment gateway to facilitate secure and convenient online transactions.
 
+  
 ## Installation
 
 1. Clone the repository:
 
-git clone https://github.com/your-username/your-repo.git
+git clone https://github.com/Ragnar-Loth-brok/comfyhome.git
 
 2. Install the dependencies:
 
-cd your-repo
+cd comfyhome
 npm install
 
 3. Start the development server:
 
 npm start
 
-4.Connect your mobile device or use an emulator/simulator to run the app.
+4. Connect your mobile device or use an emulator/simulator to run the app.
+
+npm run android
+
+OR
+  
+npm run ios
+  
+## Contributing:
+
+- Contributions are welcome! If you encounter any issues, have suggestions, or want to contribute new features, feel free to open an issue or submit a pull request.
+ 
