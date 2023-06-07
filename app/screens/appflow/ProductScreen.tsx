@@ -28,11 +28,13 @@ import Animated, {
   measure,
   runOnJS,
   runOnUI,
+  SlideInRight,
   useAnimatedRef,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
   withTiming,
+  ZoomIn,
 } from 'react-native-reanimated';
 import {BlurView} from '@react-native-community/blur';
 import {
@@ -50,9 +52,9 @@ import ProductDetails from '../../components/product/ProductDetails';
 import {ProductScreenConstants} from '../../utils/config';
 import {imageGridStyles} from '../../utils/defaultStyles';
 import {FONT_TYPES} from '../../utils/style';
+import ProductMoreDetails from '../../components/product/ProductMoreDetails';
 
 const CHEVRON_INIT_Y = hpp(12);
-// const CHEVRON_CONTAIN_Y = hpp(84);
 
 export default function ProductScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -97,23 +99,20 @@ export default function ProductScreen() {
   const imagePositionX = useSharedValue(0);
   const imagePositionY = useSharedValue(0);
   const animateTransition = useSharedValue(0);
+  const [showDetails, setShowDetails] = useState(false);
 
   const scale = useSharedValue(1);
   const savedScale = useSharedValue(1);
 
   const pinchGesture = Gesture.Pinch()
     .onUpdate(e => {
-      if (sharedValue.value === 0) {
+      if (sharedValue.value === -1) {
         scale.value = savedScale.value * e.scale;
       }
     })
-    .onEnd(() => {
-      savedScale.value = scale.value;
+    .onEnd(_ => {
+      savedScale.value = withSpring(scale.value);
     });
-
-  const scaleStyle = useAnimatedStyle(() => ({
-    transform: [{scale: scale.value}],
-  }));
 
   const goBack = useCallback(() => {
     navigation.goBack();
@@ -125,7 +124,7 @@ export default function ProductScreen() {
   }, []);
 
   const panGesture = Gesture.Pan()
-    .onBegin(e => {
+    .onBegin(() => {
       if (sharedValue.value === -1) {
         sharedValue.value = withSpring(0);
       }
@@ -155,6 +154,7 @@ export default function ProductScreen() {
       ) {
         position.value = withSpring(-ProductScreenConstants.SWIPE_HEIGHT);
         sharedValue.value = 1;
+        runOnJS(setShowDetails)(true);
       } else if (
         sharedValue.value === 1 &&
         // e.translationY > 0 &&
@@ -176,12 +176,18 @@ export default function ProductScreen() {
       if (sharedValue.value === -1) {
         imagePositionX.value = e.translationX;
         imagePositionY.value = e.translationY;
+      } else {
+        imagePositionX.value = 0;
+        imagePositionY.value = 0;
       }
     })
-    .onEnd(e => {
+    .onEnd(_ => {
       if (sharedValue.value === -1) {
         imagePositionX.value = withSpring(0);
         imagePositionY.value = withSpring(0);
+      } else {
+        imagePositionX.value = 0;
+        imagePositionY.value = 0;
       }
     });
 
@@ -200,7 +206,7 @@ export default function ProductScreen() {
   }, []);
 
   const animateImageView = useAnimatedStyle(() => {
-    const height = interpolate(
+    let height = interpolate(
       position.value,
       [0, -ProductScreenConstants.SWIPE_HEIGHT],
       [
@@ -208,15 +214,23 @@ export default function ProductScreen() {
         ProductScreenConstants.IMAGE_FINAL_HEIGHT,
       ],
     );
+
     return {
       height,
     };
   }, []);
   const animateScaleImagePanGesture = useAnimatedStyle(() => {
+    if (scale.value < 0.4) {
+      scale.value = 0.4;
+    } else if (scale.value > 1.6) {
+      scale.value = 1.6;
+    }
+
     return {
       transform: [
         {translateX: imagePositionX.value},
         {translateY: imagePositionY.value},
+        {scale: withSpring(scale.value)},
       ],
     };
   }, []);
@@ -339,6 +353,9 @@ export default function ProductScreen() {
         // extrapolateRight: Extrapolate.CLAMP,
       },
     );
+    if (sharedValue.value !== -1) {
+      scale.value = 1;
+    }
 
     return {
       height,
@@ -367,10 +384,23 @@ export default function ProductScreen() {
   });
 
   const scaleIconAnimation = useAnimatedStyle(() => {
-    const degree = interpolate(sharedValue.value, [0, -1], [0, 45]);
+    const degree = interpolate(sharedValue.value, [0, -1], [0, 45], {
+      extrapolateLeft: Extrapolate.CLAMP,
+      extrapolateRight: Extrapolate.CLAMP,
+    });
 
     return {
       transform: [{rotateZ: withSpring(`${degree}deg`)}],
+    };
+  });
+  const removeZoomIconAnimation = useAnimatedStyle(() => {
+    const opacity = interpolate(sharedValue.value, [0, 1], [1, 0], {
+      extrapolateLeft: Extrapolate.CLAMP,
+      extrapolateRight: Extrapolate.CLAMP,
+    });
+
+    return {
+      opacity: withTiming(opacity, {duration: 200}),
     };
   });
 
@@ -380,8 +410,6 @@ export default function ProductScreen() {
     const imageMeasure = measure(imageRef);
     if (dimensions) {
       parentDimensions.value = dimensions;
-      // runOnJS(setParamDimension)(dimensions);
-      // runOnJS(toggleModal)();
       runOnJS(setModalVisible)(true);
     }
     if (imageMeasure) {
@@ -390,8 +418,16 @@ export default function ProductScreen() {
   };
 
   const onTap = useCallback(() => {
-    setHardwareBackPress(false);
-    runOnUI(getDimensions)();
+    if (scale.value !== 1) {
+      scale.value = withTiming(1, {duration: 10});
+      setTimeout(() => {
+        setHardwareBackPress(false);
+        runOnUI(getDimensions)();
+      }, 200);
+    } else {
+      setHardwareBackPress(false);
+      runOnUI(getDimensions)();
+    }
   }, []);
 
   const onScalePress = useCallback(() => {
@@ -439,30 +475,47 @@ export default function ProductScreen() {
   const composed = Gesture.Race(imagePanGesture, pinchGesture);
 
   return (
-    <Container backgroundColor={colors.bg}>
-      <StatusBar animated barStyle="dark-content" hidden={false} />
+    <Container>
+      <StatusBar
+        animated
+        barStyle="dark-content"
+        backgroundColor={colors.bg}
+        hidden={false}
+      />
       <GestureHandlerRootView>
         <View style={styles.parentBg}>
           <Animated.View
             ref={aref}
             style={[styles.container, animateContainerView]}>
-            <View style={styles.headerContainer}>
+            <Animated.View
+              layout={Layout}
+              entering={SlideInRight}
+              style={styles.headerContainer}>
               <Pressable onPress={onTap} style={styles.iconContainer}>
                 <BackIcon />
               </Pressable>
-              <Text
-                style={{
-                  fontSize: fp(18),
-                  fontFamily: FONT_TYPES.W_500,
-                  color: colors.primary,
-                  letterSpacing: 1,
-                }}>
-                Lamps
+              <Text style={styles.headerTitle}>
+                {product?.category || 'N/A'}
               </Text>
               <Pressable onPress={toggleLike} style={styles.iconContainer}>
-                {liked ? <HeartFillIcon /> : <HeartOutlineIcon />}
+                {liked ? (
+                  <Animated.View layout={Layout} entering={ZoomIn.springify()}>
+                    <HeartFillIcon
+                      style={{
+                        transform: [
+                          {
+                            scale: 1.4,
+                          },
+                          {rotateZ: '10deg'},
+                        ],
+                      }}
+                    />
+                  </Animated.View>
+                ) : (
+                  <HeartOutlineIcon />
+                )}
               </Pressable>
-            </View>
+            </Animated.View>
             {product && (
               <>
                 <GestureDetector gesture={composed}>
@@ -474,61 +527,44 @@ export default function ProductScreen() {
                         animateScaleImagePanGesture,
                         animateImageView,
                         styles.imageDimension,
-                        scaleStyle,
                         scaleImageStyles,
                       ]}
                       resizeMode="contain"
                     />
                   </>
                 </GestureDetector>
-                <Pressable
-                  onPress={onScalePress}
-                  style={{
-                    position: 'absolute',
-                    backgroundColor: 'rgba(0, 0, 0, 0.4)',
-                    width: hpp(50),
-                    height: hpp(50),
-                    alignSelf: 'center',
-                    top: hp(25),
-                    zIndex: 10,
-                    borderRadius: hpp(5),
-                    overflow: 'hidden',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    right: wp(30),
-                  }}>
-                  <BlurView
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      bottom: 0,
-                      right: 0,
-                    }}
-                    blurType="light"
-                    blurAmount={7}
-                    reducedTransparencyFallbackColor="white"
-                  />
-                  <Animated.View style={scaleIconAnimation}>
-                    <ZoomIcon style={{transform: [{translateY: hpp(15)}]}} />
-                  </Animated.View>
-                </Pressable>
+                <Animated.View
+                  entering={ZoomIn.springify()}
+                  style={[
+                    removeZoomIconAnimation,
+                    styles.zoomIconContainerStyle,
+                  ]}>
+                  <Pressable onPress={onScalePress}>
+                    <BlurView
+                      style={styles.blurView}
+                      blurType="light"
+                      blurAmount={7}
+                      reducedTransparencyFallbackColor="white"
+                    />
+                    <Animated.View style={scaleIconAnimation}>
+                      <ZoomIcon style={{transform: [{translateY: hpp(15)}]}} />
+                    </Animated.View>
+                  </Pressable>
+                </Animated.View>
               </>
             )}
-            <ProductDetails position={position} />
+            <ProductDetails position={position} product={product} />
           </Animated.View>
-          <Animated.View>
-            <GestureDetector gesture={panGesture}>
-              <Animated.View style={[styles.purchaseContainer]}>
-                <Animated.View style={[styles.chevronContainer]}>
-                  <Animated.View style={chevronAnimation}>
-                    <ChevronIcon />
-                  </Animated.View>
+          <GestureDetector gesture={panGesture}>
+            <Animated.View style={[styles.purchaseContainer]}>
+              <Animated.View style={[styles.chevronContainer]}>
+                <Animated.View style={chevronAnimation}>
+                  <ChevronIcon />
                 </Animated.View>
               </Animated.View>
-              {/* {other compos} */}
-            </GestureDetector>
-          </Animated.View>
+              {showDetails && <ProductMoreDetails product={product} />}
+            </Animated.View>
+          </GestureDetector>
         </View>
       </GestureHandlerRootView>
       <Modal transparent visible={visibleModal} animationType="fade">
@@ -574,6 +610,12 @@ const styles = StyleSheet.create({
     height: hp(5),
     alignItems: 'center',
   },
+  headerTitle: {
+    fontSize: fp(19),
+    fontFamily: FONT_TYPES.W_500,
+    color: colors.primary,
+    letterSpacing: 1.5,
+  },
   imageDimension: {
     width: wp(100),
   },
@@ -590,6 +632,13 @@ const styles = StyleSheet.create({
   // likeIconContainer: {
   //   padding: hp(2),
   // },
+  blurView: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
   modalContainer: {
     backgroundColor: colors.bg,
     flex: 1,
@@ -617,5 +666,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.44,
     shadowRadius: 10.32,
     elevation: 16,
+  },
+  zoomIconContainerStyle: {
+    position: 'absolute',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    width: hpp(50),
+    height: hpp(50),
+    alignSelf: 'center',
+    top: hp(25),
+    zIndex: 10,
+    borderRadius: hpp(5),
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    right: wp(30),
   },
 });

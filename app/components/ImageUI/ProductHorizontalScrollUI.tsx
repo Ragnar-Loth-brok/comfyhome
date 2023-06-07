@@ -2,12 +2,13 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Animated, {
   SharedValue,
+  SlideInDown,
   useAnimatedScrollHandler,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
 import colors from '../../utils/colors';
-import {fp, hp, splitArray, wp, wpp} from '../../utils/config';
+import {fp, hp, wp, wpp} from '../../utils/config';
 import {HomeScreenTexts} from '../../utils/string';
 import defaultStyles from '../../utils/defaultStyles';
 import {
@@ -17,13 +18,13 @@ import {
 } from '../../utils/globalTypes';
 import ImageGrid from './ImageGrid';
 import {FONT_TYPES} from '../../utils/style';
-import data from '../../utils/dummyProductDetails';
 
 type Props = {
   idY: number;
   totalItemY: number;
   scrollY: SharedValue<number>;
   height: SharedValue<number>;
+  products: ProductType[][];
   onPress: (
     item: ProductType,
     dimensions: Dimensions,
@@ -33,7 +34,7 @@ type Props = {
 };
 const DEVICE_WIDTH = wp(100);
 
-const products = splitArray(data.mixed, 4);
+// const products = splitArray(data.mixed, 4);
 
 export default function ProductHorizontalScrollUI({
   height,
@@ -42,6 +43,7 @@ export default function ProductHorizontalScrollUI({
   totalItemY,
   onPress,
   statusBarHeight,
+  products,
 }: Props): JSX.Element {
   const scrollX = useSharedValue(0);
   const contentSize = useSharedValue(DEVICE_WIDTH);
@@ -61,7 +63,11 @@ export default function ProductHorizontalScrollUI({
       onScroll={scrollHandler}
       decelerationRate={0.8}
       style={styles.container}>
-      <View style={[{marginLeft: wpp(20)}]}>
+      <Animated.View
+        entering={SlideInDown.delay(idY * 100 + 300)
+          .springify()
+          .duration(600)}
+        style={[{marginLeft: wpp(20)}]}>
         <View style={[defaultStyles.child_center, styles.subContainer]}>
           {HomeScreenTexts.categories[idY]
             .split('')
@@ -77,7 +83,7 @@ export default function ProductHorizontalScrollUI({
             <View style={styles.dot} key={i} />
           ))}
         </View>
-      </View>
+      </Animated.View>
       {products.map((item, index) => (
         <ImageGrid
           key={index}

@@ -8,9 +8,12 @@ import {
 import Animated, {
   FlipInEasyY,
   interpolate,
+  Layout,
+  SlideInLeft,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
+  ZoomIn,
 } from 'react-native-reanimated';
 
 import colors from '../utils/colors';
@@ -131,16 +134,21 @@ export default function SplashScreen(): JSX.Element {
     <Container>
       <GestureHandlerRootView>
         <StatusBar hidden={true} />
-        <View style={styles.subContainer}>
+        <Animated.View
+          layout={Layout}
+          entering={SlideInLeft.springify()}
+          style={styles.subContainer}>
           <View style={styles.headingContainer}>
             <Text style={styles.heading}>{SplashScreenTexts.heading}</Text>
           </View>
           <View style={styles.divider} />
           <Text style={styles.title}>{SplashScreenTexts.title}</Text>
-        </View>
-        <View style={styles.cicleUIContainer}>
+        </Animated.View>
+        <Animated.View
+          entering={ZoomIn.springify()}
+          style={styles.cicleUIContainer}>
           <CircleUI />
-        </View>
+        </Animated.View>
         <GestureDetector gesture={panGesture}>
           <Animated.View entering={FlipInEasyY.springify()} style={styles.box}>
             <Animated.View
@@ -148,20 +156,20 @@ export default function SplashScreen(): JSX.Element {
             />
             <Animated.View style={[styles.chairImageContainer, chairAnimation]}>
               <Image
-                source={require('../assets/images/products/chairs/chair2.png')}
+                source={require('../assets/images/products/splash/chair2.png')}
                 style={styles.chair1Image}
               />
             </Animated.View>
             <Animated.View
               style={[styles.chairImageContainer, chair2Animation]}>
               <Image
-                source={require('../assets/images/products/chairs/chair3.png')}
+                source={require('../assets/images/products/splash/chair3.png')}
                 style={styles.chair2Image}
               />
             </Animated.View>
             <Animated.View style={[styles.lampImageContainer, lampAnimation]}>
               <Image
-                source={require('../assets/images/products/lamps/lamp.png')}
+                source={require('../assets/images/products/splash/lamp.png')}
                 style={styles.lampImage}
               />
             </Animated.View>

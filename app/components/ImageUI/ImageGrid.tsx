@@ -17,7 +17,6 @@ import Animated, {
   withTiming,
   ZoomIn,
 } from 'react-native-reanimated';
-import {Shadow} from 'react-native-shadow-2';
 import colors from '../../utils/colors';
 import {hp, ProductScreenConstants, wp, wpp} from '../../utils/config';
 import {imageGridStyles} from '../../utils/defaultStyles';
@@ -137,11 +136,11 @@ export default function ImageGrid({
   }, []);
 
   const toggleModal = useCallback(() => {
-    animateTransition.value = withDelay(10, withTiming(1, {duration: 150}));
+    animateTransition.value = withDelay(10, withTiming(1, {duration: 100}));
     setModalVisible(boolVal => !boolVal);
     setTimeout(() => {
       setNavigateUser(true);
-    }, 350);
+    }, 300);
   }, []);
 
   const getDimensions = () => {
@@ -300,7 +299,7 @@ export default function ImageGrid({
       {products[0] && (
         <Animated.View
           layout={Layout}
-          entering={ZoomIn.delay(200).springify()}
+          entering={ZoomIn.delay(200 * (idY + 1)).springify()}
           style={[styles.typeAContainer, imageGridStyles.cardShadow]}>
           <Animated.View ref={aref_1}>
             <Pressable
@@ -325,7 +324,7 @@ export default function ImageGrid({
       {products[1] && (
         <Animated.View
           layout={Layout}
-          entering={ZoomIn.delay(500).springify()}
+          entering={ZoomIn.delay(500 * (idY + 1)).springify()}
           style={[styles.typeBContainer, imageGridStyles.cardShadow]}>
           <Animated.View ref={aref_2}>
             <Pressable
@@ -349,7 +348,7 @@ export default function ImageGrid({
       {products[2] && (
         <Animated.View
           layout={Layout}
-          entering={ZoomIn.delay(700).springify()}
+          entering={ZoomIn.delay(700 * (idY + 1)).springify()}
           style={[styles.typeCContainer, imageGridStyles.cardShadow]}>
           <Animated.View ref={aref_3}>
             <Pressable
@@ -373,7 +372,7 @@ export default function ImageGrid({
       {products[3] && (
         <Animated.View
           layout={Layout}
-          entering={ZoomIn.delay(300).springify()}
+          entering={ZoomIn.delay(300 * (idY + 1)).springify()}
           style={[styles.typeDContainer, imageGridStyles.cardShadow]}>
           <Animated.View ref={aref_4}>
             <Pressable

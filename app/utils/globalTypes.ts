@@ -8,17 +8,18 @@ type ProductType = {
   id: number;
   name: string;
   image: any;
-  price?: string | number;
-  category?: string;
-  short_desc?: string;
-  desc?: string;
+  price: string | number;
+  category: string;
+  short_desc: string;
+  desc: string;
   uid: string;
+  type: string;
 };
 
 type Categories = {
-  mixed: ProductType[];
-  lamps: ProductType[];
-  chairs: ProductType[];
+  offers: ProductType[];
+  armchair: ProductType[];
+  cabinet: ProductType[];
 };
 
 type Dimensions = {

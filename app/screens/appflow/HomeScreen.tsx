@@ -10,16 +10,24 @@ import {
   ImageDimensions,
 } from '../../utils/globalTypes';
 import colors from '../../utils/colors';
-import {hp, wpp} from '../../utils/config';
+import data from '../../utils/dummyProductDetails';
+import {hp, splitArray, wpp} from '../../utils/config';
 import {HomeScreenTexts} from '../../utils/string';
 import defaultStyles from '../../utils/defaultStyles';
 import ProductHorizontalScrollUI from '../../components/ImageUI/ProductHorizontalScrollUI';
 import Animated, {
+  Layout,
+  SlideInLeft,
   useAnimatedScrollHandler,
   useSharedValue,
   withSpring,
   withTiming,
+  ZoomIn,
 } from 'react-native-reanimated';
+
+const product1 = splitArray(data.offers, 4);
+const product2 = splitArray(data.armchair, 4);
+const product3 = splitArray(data.cabinet, 4);
 
 const DEVICE_HEIGHT = hp(100);
 
@@ -69,29 +77,40 @@ export default function HomeScreen(): JSX.Element {
       showsVerticalScrollIndicator={false}
       onScroll={scrollHandler}
       scrollEventThrottle={10}
-      style={[{backgroundColor: colors.appBgPrimary}]}>
+      style={[{backgroundColor: colors.bg}]}>
       <Container>
-        <StatusBar animated barStyle="dark-content" hidden={false} />
+        <StatusBar
+          animated
+          barStyle="dark-content"
+          backgroundColor={colors.bg}
+          hidden={false}
+        />
         <Animated.View
           onLayout={e => {
             statusBarHeight.value = e.nativeEvent.layout.y;
           }}
         />
         <View style={styles.container}>
-          <View style={styles.menuContainer}>
+          <Animated.View
+            layout={Layout}
+            entering={ZoomIn.springify()}
+            style={styles.menuContainer}>
             <View style={styles.dot} />
             <View style={styles.dot} />
             <View style={styles.dot} />
             <View style={styles.dot} />
-          </View>
-          <View style={styles.headingContainer}>
+          </Animated.View>
+          <Animated.View
+            layout={Layout}
+            entering={SlideInLeft.springify()}
+            style={styles.headingContainer}>
             <Text style={defaultStyles.headingStyleA}>
               {HomeScreenTexts.headingA}
             </Text>
             <Text style={defaultStyles.headingStyleB}>
               {HomeScreenTexts.headingB}
             </Text>
-          </View>
+          </Animated.View>
         </View>
 
         <ProductHorizontalScrollUI
@@ -101,6 +120,7 @@ export default function HomeScreen(): JSX.Element {
           totalItemY={3}
           onPress={productNavigation}
           statusBarHeight={statusBarHeight}
+          products={product1}
         />
         <ProductHorizontalScrollUI
           height={contentSize}
@@ -109,6 +129,7 @@ export default function HomeScreen(): JSX.Element {
           totalItemY={3}
           onPress={productNavigation}
           statusBarHeight={statusBarHeight}
+          products={product2}
         />
         <ProductHorizontalScrollUI
           height={contentSize}
@@ -117,6 +138,7 @@ export default function HomeScreen(): JSX.Element {
           totalItemY={3}
           onPress={productNavigation}
           statusBarHeight={statusBarHeight}
+          products={product3}
         />
       </Container>
     </Animated.ScrollView>
@@ -137,7 +159,7 @@ const styles = StyleSheet.create({
     width: 5,
     height: 5,
     borderRadius: 2.5,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.border,
     // marginRight: 2,
   },
   menuContainer: {

@@ -17,20 +17,20 @@ export default StyleSheet.create({
   headingStyleA: {
     fontSize: fp(32),
     fontFamily: FONT_TYPES.W_500,
-    color: colors.textSecondary,
+    color: colors.primary,
   },
   headingStyleB: {
     fontSize: fp(32),
     fontFamily: FONT_TYPES.W_400,
-    color: colors.textSecondary,
+    color: colors.primary,
   },
 });
 
 export const imageGridStyles = StyleSheet.create({
   title: {
-    fontSize: fp(16),
+    fontSize: fp(14),
     fontFamily: FONT_TYPES.W_400,
-    color: colors.title,
+    color: colors.titlePrimary,
     marginVertical: 5,
     marginLeft: 5,
     letterSpacing: 1,
@@ -52,7 +52,7 @@ export const imageGridStyles = StyleSheet.create({
     height: hp(10),
   },
   cardShadow: {
-    shadowColor: '#000',
+    shadowColor: colors.primary,
     shadowOffset: {
       width: 0,
       height: 1,

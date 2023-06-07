@@ -9,15 +9,18 @@ import Animated, {
 
 import colors from '../../utils/colors';
 import {fp, hp, hpp, ProductScreenConstants, wp} from '../../utils/config';
+import {ProductType} from '../../utils/globalTypes';
 import {FONT_TYPES} from '../../utils/style';
 
 type Props = {
   position: SharedValue<number>;
+  product?: ProductType;
 };
 
-const name = 'Baron Lamp';
-
-export default function ProductDetails({position}: Props) {
+export default function ProductDetails({
+  position,
+  product,
+}: Props): JSX.Element {
   const animateDetailView = useAnimatedStyle(() => {
     const opacity = interpolate(
       position.value,
@@ -35,25 +38,21 @@ export default function ProductDetails({position}: Props) {
       style={[styles.detailsContainer, animateDetailView]}>
       <View style={styles.subContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>{name.split(' ')[0]} </Text>
+          <Text style={styles.title}>{product?.name.split(' ')[0]} </Text>
           <Text style={styles.subTitle}>
-            {name
+            {product?.name
               .split(' ')
               .filter((_, index) => index !== 0)
               .join(' ')}
           </Text>
         </View>
-        <Text style={styles.productType}>Chair cover, Orresta grey</Text>
-        <View style={[styles.titleContainer, {alignItems: 'flex-end'}]}>
+        <Text style={styles.productType}>{product?.type}</Text>
+        <View style={[styles.titleContainer]}>
           <Text style={styles.priceTitle}>Rs.</Text>
-          <Text style={styles.priceText}>800</Text>
+          <Text style={styles.priceText}>{product?.price}</Text>
         </View>
       </View>
       <View style={styles.buttonsContainer}>
-        {/* <ButtonUI onPress={() => {}} title="Add to Cart" />
-        <View style={styles.cartContainer}>
-          <Cart />
-        </View> */}
         <Text
           numberOfLines={3}
           style={{
@@ -63,9 +62,7 @@ export default function ProductDetails({position}: Props) {
             color: colors.titlePrimary,
             fontFamily: FONT_TYPES.W_400,
           }}>
-          Dining chairs in the BERGMUND series offer cushiony comfort and many
-          cover options, like this one in a pale shade of grey. After engaging
-          meals and after-dinner chit-chat, it’s good to know it’s washable.
+          {product?.desc}
         </Text>
       </View>
     </Animated.View>
@@ -86,7 +83,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   title: {
     fontSize: fp(28),

@@ -10,7 +10,7 @@ type Props = PropsWithChildren<{
 
 export default function Container({
   children,
-  backgroundColor = colors.appBgPrimary,
+  backgroundColor = colors.bg,
 }: Props): JSX.Element {
   return (
     <SafeAreaView style={[styles.container, {backgroundColor}]}>
