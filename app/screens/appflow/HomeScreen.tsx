@@ -79,6 +79,7 @@ export default function HomeScreen(): JSX.Element {
       scrollEventThrottle={1}
       // scroll
       decelerationRate={1}
+      nestedScrollEnabled
       style={[{backgroundColor: colors.bg}]}>
       <Container>
         <StatusBar

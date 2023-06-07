@@ -127,5 +127,6 @@ const styles = StyleSheet.create({
     transform: [{rotateZ: '270deg'}],
     fontSize: fp(12),
     fontFamily: FONT_TYPES.W_500,
+    color: colors.primary,
   },
 });
