@@ -111,18 +111,6 @@ const data: Categories = {
       desc: 'The furniture in the SKRUVBY series is designed to go well together. Combine and match them as you like or use each piece of furniture as a beautiful solitaire.',
     },
     {
-      id: 10,
-      name: 'SANDSBERG / ADDE',
-      image: require('../assets/images/products/offers/pic9.png'),
-      type: 'Table and 4 chairs, black/black',
-      price: '6,790',
-      category: 'Dining sets',
-      short_desc:
-        'A slim design that blends in without taking up too much visual space in the room, yet sturdy enough to hold up to everyday activities.',
-      uid: '294.291.95',
-      desc: "You can stack the chairs, so they take less space when you're not using them.",
-    },
-    {
       id: 11,
       name: 'JOKKMOKK',
       image: require('../assets/images/products/offers/pic11.png'),
@@ -145,6 +133,18 @@ const data: Categories = {
         'Tired in the morning? Then hang tomorrow’s outfit behind the mirror and allow yourself with a few more minutes under the covers. The soft shapes and warm ash veneer create a cosy feeling in the room.',
       uid: '102.983.97',
       desc: 'Tired in the mornings? You can save time by hanging tomorrow’s outfit behind the mirror. To avoid clothes piles and extra loads of laundry, you can hang used clothes behind the mirror.',
+    },
+    {
+      id: 10,
+      name: 'SANDSBERG / ADDE',
+      image: require('../assets/images/products/offers/pic9.png'),
+      type: 'Table and 4 chairs, black/black',
+      price: '6,790',
+      category: 'Dining sets',
+      short_desc:
+        'A slim design that blends in without taking up too much visual space in the room, yet sturdy enough to hold up to everyday activities.',
+      uid: '294.291.95',
+      desc: "You can stack the chairs, so they take less space when you're not using them.",
     },
   ],
   armchair: [

@@ -76,7 +76,9 @@ export default function HomeScreen(): JSX.Element {
     <Animated.ScrollView
       showsVerticalScrollIndicator={false}
       onScroll={scrollHandler}
-      scrollEventThrottle={10}
+      scrollEventThrottle={1}
+      // scroll
+      decelerationRate={1}
       style={[{backgroundColor: colors.bg}]}>
       <Container>
         <StatusBar
