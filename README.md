@@ -1,5 +1,5 @@
 # Comfyhome - React Native
-Demo video link: [![App Demo](screenshots/ss3.png)](https://dl.dropboxusercontent.com/s/cq9x50qinnhbgqx/comfyhomedemo.mp4)
+Demo video link: [![App Demo](screenshots/ss3.png){:width="200px"}](https://dl.dropboxusercontent.com/s/cq9x50qinnhbgqx/comfyhomedemo.mp4)
 
 The Comfyhome App(Furniture) is a visually stunning mobile application developed using React Native. With its intuitive user interface, captivating animations, and seamless gestures, it provides a delightful shopping experience for users looking to explore and purchase furniture items.
 
